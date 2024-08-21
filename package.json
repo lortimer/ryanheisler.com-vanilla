@@ -1,0 +1,19 @@
+{
+  "name": "ryanheisler.com",
+  "version": "0.0.0",
+  "description": "Ryan Heisler's personal website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lortimer/ryanheisler.com-vanilla.git"
+  },
+  "author": "Ryan Heisler (ryanheisler.com)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/lortimer/ryanheisler.com-vanilla/issues"
+  },
+  "homepage": "https://github.com/lortimer/ryanheisler.com-vanilla#readme"
+}
