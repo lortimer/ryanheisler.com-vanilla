@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lortimer/ryanheisler.com-vanilla/issues"
   },
-  "homepage": "https://github.com/lortimer/ryanheisler.com-vanilla#readme"
+  "homepage": "https://github.com/lortimer/ryanheisler.com-vanilla#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
