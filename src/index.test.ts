@@ -5,9 +5,7 @@ import { JSDOM } from "jsdom";
 import { within } from "@testing-library/dom";
 
 import { expect } from "vitest";
-import * as matchers from "@testing-library/jest-dom/matchers";
-
-expect.extend(matchers);
+import userEvent from "@testing-library/user-event";
 
 const html = fs.readFileSync(path.resolve(__dirname, "index.html"));
 
@@ -20,7 +18,18 @@ describe("index", () => {
     });
 
     it("renders a heading", () => {
-        let heading = within(container).getByRole("heading", { level: 1, name: "Welcome" });
+        const heading = within(container).getByRole("heading", { level: 1, name: "Welcome" });
         expect(heading).toBeVisible();
+    });
+
+    it("shows more text when button is clicked", () => {
+        /**
+         * requires @testing-library/user-event, adding a script to the HTML. If this works, move the script out of the
+         * HTML, then put it into Typescript. See if you can use a different TS config file for scripts to be delivered
+         * to the browser.
+         */
+
+        const user = userEvent.setup();
+        const button = within(container).getByRole("button");
     });
 });
