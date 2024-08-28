@@ -22,14 +22,10 @@ describe("index", () => {
         expect(heading).toBeVisible();
     });
 
-    it("shows more text when button is clicked", () => {
-        /**
-         * requires @testing-library/user-event, adding a script to the HTML. If this works, move the script out of the
-         * HTML, then put it into Typescript. See if you can use a different TS config file for scripts to be delivered
-         * to the browser.
-         */
-
+    it("shows more text when button is clicked", async () => {
         const user = userEvent.setup();
         const button = within(container).getByRole("button");
+        await user.click(button);
+        expect(within(container).getByText("added by javascript")).toBeVisible();
     });
 });

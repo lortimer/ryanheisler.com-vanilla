@@ -15,5 +15,17 @@
     </head>
     <body>
         <h1>Welcome</h1>
+        <button id="add-paragraph">Add Paragraph</button>
+        <div id="content-container"></div>
+        <script>
+            const button = document.querySelector("#add-paragraph");
+            const addParagraph = function () {
+                const newParagraph = document.createElement("p");
+                newParagraph.textContent = "added by javascript";
+                document.querySelector("#content-container").append(newParagraph);
+            };
+
+            button.addEventListener("click", addParagraph);
+        </script>
     </body>
 </html>
