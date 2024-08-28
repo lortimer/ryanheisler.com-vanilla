@@ -13,7 +13,11 @@ describe("index", () => {
     let dom: JSDOM;
     let container: HTMLElement;
     beforeEach(() => {
-        dom = new JSDOM(html, { runScripts: "dangerously" });
+        dom = new JSDOM(html, {
+            runScripts: "dangerously",
+            resources: "usable",
+            url: `file://${__dirname}/index.html`
+        });
         container = dom.window.document.body;
     });
 
