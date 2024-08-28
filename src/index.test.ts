@@ -12,13 +12,19 @@ const html = fs.readFileSync(path.resolve(__dirname, "index.html"));
 describe("index", () => {
     let dom: JSDOM;
     let container: HTMLElement;
-    beforeEach(() => {
-        dom = new JSDOM(html, {
-            runScripts: "dangerously",
-            resources: "usable",
-            url: `file://${__dirname}/index.html`
+
+    beforeEach(async () => {
+        await new Promise<void>(resolve => {
+            dom = new JSDOM(html, {
+                runScripts: "dangerously",
+                resources: "usable",
+                url: `file://${__dirname}/index.html`
+            });
+            dom.window.document.addEventListener("DOMContentLoaded", () => {
+                container = dom.window.document.body;
+                resolve();
+            });
         });
-        container = dom.window.document.body;
     });
 
     it("renders a heading", () => {
@@ -28,7 +34,7 @@ describe("index", () => {
 
     it("shows more text when button is clicked", async () => {
         const user = userEvent.setup();
-        const button = within(container).getByRole("button");
+        const button = within(container).getByRole("button", { name: "Add Paragraph" });
         await user.click(button);
         expect(within(container).getByText("added by javascript")).toBeVisible();
     });
