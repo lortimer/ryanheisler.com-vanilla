@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "description": "Ryan Heisler's personal website",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc && parcel build",
+    "clean": "rm -rf ./dist",
+    "server-dev": "tsc && nodemon ./dist/server.js",
+    "parcel-dev": "parcel watch --target frontend",
     "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts",
     "test": "vitest --run"
   },
   "repository": {
@@ -30,8 +32,18 @@
     "@types/node": "^22.4.2",
     "jsdom": "^24.1.1",
     "nodemon": "^3.1.4",
+    "parcel": "^2.12.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
+  },
+  "targets": {
+    "frontend": {
+      "source": [
+        "./src/public/index.html"
+      ],
+      "distDir": "./dist/public",
+      "optimize": false
+    }
   }
 }

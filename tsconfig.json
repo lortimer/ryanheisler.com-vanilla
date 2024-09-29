@@ -118,6 +118,7 @@
   },
   "exclude": [
     "./vitest-setup.ts",
-    "**/*test*"
+    "**/*test*",
+    "src/public"
   ]
 }
