@@ -1,10 +1,8 @@
 import * as fs from "node:fs";
 import path from "path";
-import { beforeEach, describe, it } from "vitest";
+import { beforeEach, describe, it, expect } from "vitest";
 import { JSDOM } from "jsdom";
 import { within } from "@testing-library/dom";
-
-import { expect } from "vitest";
 import userEvent from "@testing-library/user-event";
 
 const html = fs.readFileSync(path.resolve(__dirname, "index.html"));
