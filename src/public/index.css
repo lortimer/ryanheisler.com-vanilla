@@ -1,0 +1,43 @@
+body {
+    align-items: center;
+    background-color: #31547A;
+    color: #9DA8B5;
+    display: flex;
+    flex-flow: column wrap;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    width: 100vw;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    width: 100%;
+}
+
+button {
+    background-color: #9DA8B5;
+    border: none;
+    border-radius: 1rem;
+    color: #31547A;
+    font-family: inherit;
+    font-size: 2rem;
+    padding: 1rem;
+    width: fit-content;
+}
+
+button:hover {
+    background-color: #7E8793;
+}
+
+button:active {
+    background-color: #607693;
+}
+
+#content-container {
+    align-items: center;
+    display: flex;
+    flex-flow: column wrap;
+    padding-top: 1rem;
+    width: 100%;
+}

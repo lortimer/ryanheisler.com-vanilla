@@ -28,14 +28,20 @@ describe("index", () => {
     });
 
     it("renders a heading", () => {
-        const heading = within(container).getByRole("heading", { level: 1, name: "Welcome" });
+        const heading = within(container).getByRole("heading", { level: 1, name: "Static Website Test" });
         expect(heading).toBeVisible();
     });
 
     it("shows more text when button is clicked", async () => {
         const user = userEvent.setup();
-        const button = within(container).getByRole("button", { name: "Add Paragraph" });
+        const button = within(container).getByRole("button", { name: "Add a Paragraph" });
         await user.click(button);
-        expect(within(container).getByText("added by javascript")).toBeVisible();
+        expect(within(container).getByText("Paragraph #1 added by javascript")).toBeVisible();
+
+        await user.click(button);
+        expect(within(container).getByText("Paragraph #2 added by javascript")).toBeVisible();
+
+        await user.click(button);
+        expect(within(container).getByText("Paragraph #3 added by javascript")).toBeVisible();
     });
 });
