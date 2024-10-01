@@ -6,7 +6,7 @@
     "build": "npm run clean && tsc && parcel build",
     "clean": "rm -rf ./dist",
     "server-dev": "tsc && nodemon ./dist/server.js",
-    "parcel-dev": "parcel watch --target frontend",
+    "parcel-dev": "parcel watch --no-cache --target frontend",
     "start": "node dist/server.js",
     "test": "vitest --run"
   },
