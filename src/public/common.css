@@ -1,0 +1,64 @@
+:root {
+    --bg-dark: #181818;
+    --fg-dark: #B9B9B3;
+    --link-dark: #56D8C9;
+    --link-dark-visited: #FF81CA;
+    --link-dark-active: #EFC541;
+
+    --bg-light: #FDFAF1;
+    --fg-light: #3A4D53;
+    --link-light: #0049D1;
+    --link-light-visited: #A30067;
+    --link-light-active: #6B5306;
+}
+
+:root {
+    font-size: 1.25rem;
+}
+
+.visually-hidden {
+    height: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -10000px;
+    width: 0;
+}
+
+body {
+    font-family: Inter, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--fg-dark);
+    padding: 1rem;
+
+}
+
+a:link {
+    color: var(--link-dark)
+}
+
+a:visited {
+    color: var(--link-dark-visited);
+}
+
+a:active {
+    color: var(--link-dark-active);
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: var(--bg-light);
+        color: var(--fg-light);
+    }
+
+    a:link {
+        color: var(--link-light)
+    }
+
+    a:visited {
+        color: var(--link-light-visited);
+    }
+
+    a:active {
+        color: var(--link-light-active);
+    }
+}

@@ -5,7 +5,6 @@
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <title>Accessibility Testing is Essential - Ryan Heisler's Blog</title>
         <meta name="author" content="Ryan Heisler">
-        <!-- TODO: update this to a short description of the post -->
         <meta name="description" content="Ryan Heisler's personal website">
         <script type="application/ld+json">
             {
@@ -40,11 +39,16 @@
 
         <meta name="theme-color" content="white" media="(prefers-color-scheme: light)">
         <meta name="theme-color" content="black" media="(prefers-color-scheme: dark)">
+
+        <link rel="stylesheet" href="../common.css">
+        <link rel="stylesheet" href="../blog.css">
+        <link rel="stylesheet" href="../fonts/inter.css">
+        <link rel="stylesheet" href="../fonts/jetbrains-mono.css">
     </head>
     <body>
-        <h1>Accessibility Testing is Essential for Creating a Good User Experience</h1>
-        <!-- TODO: update this to the publish date -->
-        <p>
+        <h1>Accessi&shy;bility Testing is Essential for Creating a Good User Experience</h1>
+        <p class="byline">
+            By Ryan Heisler, published
             <time datetime="2024-10-14">October 14th, 2024</time>
         </p>
         <p>This post is a modified version of an article I wrote and originally published on my employer's blog: <a
@@ -69,14 +73,27 @@
         <p>"Every input needs a label" - most developers I've met know about this regardless of their level of knowledge
             of digital accessibility. And they all know you can either nest the input inside the label or associate them
             via the input's ID. We're told they both work the same way, but they actually don't.</p>
-        <pre class="code-block"><code>
-&lt;!-- These are not equivalent! --&gt;
 
-&lt;label&gt;Name &lt;input /&gt;&lt;/label&gt;
+        <br>
+        <div class="code-container">
+            <p class="visually-hidden">the following is an HTML code sample</p>
+            <div class="code-label" aria-hidden="true">HTML</div>
 
-&lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
-&lt;input id=&quot;name&quot; /&gt;
-        </code></pre>
+            <pre class="code-block">
+<code>&lt;!-- These are not equivalent! --&gt;
+
+&lt;label&gt;
+  Name
+  &lt;input /&gt;
+&lt;/label&gt;
+
+&lt;label for=&quot;name&quot;&gt;
+  Name
+&lt;/label&gt;
+&lt;input id=&quot;name&quot; /&gt;</code></pre>
+        </div>
+
+        <br>
         <p>As of this writing, labels and inputs associated only by the "id" attribute provide a worse experience on
             Android TalkBack in the latest Firefox. When the user focuses the label, TalkBack reads the label twice.
             This won't prevent most users from using the input, but it's potentially confusing.</p>
@@ -91,9 +108,9 @@
             as part of my early education in accessibility.</p>
         <p>When we were building a table for our web app, we were extra careful to follow best practices. However, when
             we tested the table on iOS with VoiceOver, it described the table saying, "Data table
-            <caption>, row negative ninety septillion, twenty quintiliion, twenty-three quadrillion, three-hundred
-                seventy-two trillion, thirty-six billion, eight-hundred fifty-four million, seven-hundred seventy-five
-                thousand, eight-hundred eight, table start..."
+            &lt;caption&gt;, row negative ninety septillion, twenty quintiliion, twenty-three quadrillion, three-hundred
+            seventy-two trillion, thirty-six billion, eight-hundred fifty-four million, seven-hundred seventy-five
+            thousand, eight-hundred eight, table start..."
         </p>
         <p>That number stuck out to us as oddly specific - we didn't even have any numbers in the table, and it only had
             two columns and a few rows.With some searching we realized that it's the minimum signed 64-bit integer,
