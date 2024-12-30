@@ -3,7 +3,6 @@ import path from "path";
 import { beforeEach, describe, it, expect } from "vitest";
 import { JSDOM } from "jsdom";
 import { within } from "@testing-library/dom";
-import userEvent from "@testing-library/user-event";
 
 const html = fs.readFileSync(path.resolve(__dirname, "index.html"));
 
@@ -26,20 +25,21 @@ describe("index", () => {
     });
 
     it("renders a heading", () => {
-        const heading = within(container).getByRole("heading", { level: 1, name: "Static Website Test" });
+        const heading = within(container).getByRole("heading", { level: 1, name: "Ryan Heisler's Blog" });
         expect(heading).toBeVisible();
     });
 
-    it("shows more text when button is clicked", async () => {
-        const user = userEvent.setup();
-        const button = within(container).getByRole("button", { name: "Add a Paragraph" });
-        await user.click(button);
-        expect(within(container).getByText("Paragraph #1 added by javascript")).toBeVisible();
+    it("has a link to the blog post", async () => {
+        const name = "Accessibility Testing is Essential for Creating a Good User Experience";
+        const link: HTMLLinkElement = within(container).getByRole("link", { name });
+        expect(link).toBeVisible();
+        expect(link.href).toContain("blog/accessibility-testing-essential.html");
+    });
 
-        await user.click(button);
-        expect(within(container).getByText("Paragraph #2 added by javascript")).toBeVisible();
-
-        await user.click(button);
-        expect(within(container).getByText("Paragraph #3 added by javascript")).toBeVisible();
+    it("has a link to a credits and license page", async () => {
+        const name = "technologies and assets made by other people";
+        const link: HTMLLinkElement = within(container).getByRole("link", { name });
+        expect(link).toBeVisible();
+        expect(link.href).toContain("credits-and-licenses.html");
     });
 });

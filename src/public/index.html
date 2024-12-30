@@ -16,11 +16,30 @@
         <meta content="#82005b" media="(prefers-color-scheme: dark)" name="theme-color" />
 
         <link rel="stylesheet" href="common.css">
+        <link rel="stylesheet" href="index.css">
     </head>
     <body>
-        <h1>Static Website Test</h1>
-        <button id="add-paragraph">Add a Paragraph</button>
-        <div id="content-container"></div>
-        <script src="index.ts"></script>
+        <div class="container">
+            <div>
+                <h1>Ryan Heisler's Blog</h1>
+                <p>I'm a software developer focusing on accessibility and usability, and this is my blog where I write
+                    about
+                    accessibility and other things.</p>
+                <ul>
+                    <li class="entry">
+                        <a href="blog/accessibility-testing-essential.html">Accessibility Testing is Essential for
+                            Creating a Good User Experience</a>
+                        <span class="publish-date">&nbsp;- published October 14th, 2024</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <hr>
+                <p>This site was built by Ryan Heisler using <a href="./credits-and-licenses.html">technologies and
+                    assets
+                    made
+                    by other people</a>.</p>
+            </div>
+        </div>
     </body>
 </html>
