@@ -1,17 +1,29 @@
 @font-face {
     font-family: "Inter";
     font-style: normal;
-    font-weight: 400;
+    font-weight: normal;
     font-display: swap;
-    src: url("../../local-assets/Inter-Regular.woff2") format("woff2");
+    src: url("../../local-assets/Inter-Regular.woff2") format("woff2"),
+    url("../../local-assets/Inter-Regular.otf") format("opentype"),
+    url("../../local-assets/Inter-Regular.ttf") format("truetype");
 }
 
-/*get multiple file formats*/
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url("../../local-assets/Inter-Bold.woff2") format("woff2"),
+    url("../../local-assets/Inter-Bold.otf") format("opentype"),
+    url("../../local-assets/Inter-Bold.ttf") format("truetype");
+}
 
 @font-face {
     font-family: "Inter";
     font-style: italic;
-    font-weight: 400;
+    font-weight: normal;
     font-display: swap;
-    src: url("../../local-assets/Inter-Italic.woff2") format("woff2");
+    src: url("../../local-assets/Inter-Italic.woff2") format("woff2"),
+    url("../../local-assets/Inter-Italic.otf") format("opentype"),
+    url("../../local-assets/Inter-Italic.ttf") format("truetype");
 }
