@@ -3,3 +3,5 @@ node_modules
 dist
 .parcel-cache
 local-assets
+src/public/fonts/files/
+src/public/images
