@@ -1,0 +1,4 @@
+- [ ] Add link back to the home page
+- [ ] Add skip-nav link
+- [ ] Add focus border styling to match CSS and look good no matter what theme is used
+- [ ] Fix Issues from https://developer.mozilla.org/en-US/observatory/analyze?host=blog.ryanheisler.com
