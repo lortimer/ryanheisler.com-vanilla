@@ -1,4 +1,16 @@
+# To do
+
 - [ ] Add link back to the home page
 - [ ] Add skip-nav link
 - [ ] Add focus border styling to match CSS and look good no matter what theme is used
-- [ ] Fix Issues from https://developer.mozilla.org/en-US/observatory/analyze?host=blog.ryanheisler.com
+
+## When moving from Cloudfront to Node Server hosted somewhere
+
+- [ ] Set response header policies so https://developer.mozilla.org/en-US/observatory/analyze?host=blog.ryanheisler.com
+  passes. Policies / headers should cover:
+    - Content Security Policy - CSP
+    - Strict Transport Security - HSTS
+    - Referrer policy
+    - X-Content-Type-Options
+    - X-Frame-Options
+    - X-XSS-Protection
