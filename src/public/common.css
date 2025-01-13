@@ -12,16 +12,34 @@
     --link-light-active: #6B5306;
 }
 
-h1 {
-    font-size: 1.75rem;
-}
-
 .visually-hidden {
     height: 0;
     overflow: hidden;
     position: absolute;
     top: -10000px;
     width: 0;
+}
+
+:focus {
+    outline: none;
+}
+
+:focus-visible {
+    border: 0.2rem solid var(--link-dark-active);
+    box-sizing: border-box;
+    padding: 0 0.25rem
+}
+
+@supports not selector(:focus-visible) {
+    :focus {
+        border: 0.2rem solid var(--link-dark-active);
+        box-sizing: border-box;
+        padding: 0 0.25rem
+    }
+}
+
+h1 {
+    font-size: 1.75rem;
 }
 
 body {
@@ -52,6 +70,21 @@ a:active {
     body {
         background-color: var(--bg-light);
         color: var(--fg-light);
+    }
+
+    :focus-visible {
+        border: 0.2rem solid var(--fg-light);
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        padding: 0 0.25rem
+    }
+
+    @supports not selector(:focus-visible) {
+        :focus {
+            border: 0.2rem solid var(--fg-light);
+            box-sizing: border-box;
+            padding: 0 0.25rem
+        }
     }
 
     a:link {

@@ -2,7 +2,6 @@
 
 - [ ] Add link back to the home page
 - [ ] Add skip-nav link
-- [ ] Add focus border styling to match CSS and look good no matter what theme is used
 
 ## When moving from Cloudfront to Node Server hosted somewhere
 
