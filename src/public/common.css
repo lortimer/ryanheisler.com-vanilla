@@ -38,6 +38,10 @@
     }
 }
 
+.italic {
+    font-style: italic;
+}
+
 h1 {
     font-size: 1.75rem;
 }
