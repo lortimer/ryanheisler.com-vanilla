@@ -2,7 +2,8 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
     test: {
-        setupFiles: ["./vitest-setup.ts"],
-        environment: "jsdom"
+        name: "API",
+        environment: "node",
+        include: ["src/heisldice/**/*test*"]
     },
 });
