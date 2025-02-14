@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { render } from "../../test/render";
 
 describe("index", () => {
@@ -15,7 +15,7 @@ describe("index", () => {
 
         const link: HTMLLinkElement = getByRole("link", { name });
         expect(link).toBeVisible();
-        expect(link.href).toContain("blog/accessibility-testing-essential.html");
+        expect(link.href).toContain("blog/accessibility/accessibility-testing-essential.html");
     });
 
     it("has a link to a credits and license page", async () => {

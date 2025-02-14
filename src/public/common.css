@@ -44,6 +44,7 @@
 
 h1 {
     font-size: 1.75rem;
+    margin-top: 0;
 }
 
 body {
@@ -54,8 +55,8 @@ body {
     padding: 1.25rem;
 }
 
-h1 {
-    margin-top: 0;
+li {
+    margin-bottom: 0.75rem;
 }
 
 a:link {
