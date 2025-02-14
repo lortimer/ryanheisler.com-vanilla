@@ -4,8 +4,9 @@
 
 - [ ] Width 75% isn't working (I think I just never applied it to the text)
 - [ ] Add link back to the home page
+
 - [ ] Add skip-nav link
-- [ ] Short post about difficulty getting NodeJS fetch in HTML scripts in tests
+- [X] Short post about difficulty getting NodeJS fetch in HTML scripts in tests
 - [ ] Serve blog from Express server, not Parcel static
 
 ## Server
