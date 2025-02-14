@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <title>Accessibility Testing is Essential - Ryan Heisler's Blog</title>
-        <meta name="author" content="Ryan Heisler">
-        <meta name="description"
-              content="We who build software choose who is disabled by our products and who isn't. We must test our products for accessibility when testing for usability">
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "BlogPosting",
-                "headline": "Accessibility Testing is Essential",
-                "image": [
-                    "images/rep-1x1.jpg",
-                    "images/rep-4x3.jpg",
-                    "images/rep-16x9.jpg"
-                ],
-                "datePublished": "2025-01-12T20:50:00+00:00",
-                "dateModified": "2025-01-12T20:50:00+00:00",
-                "author": [
-                    {
-                        "@type": "Person",
-                        "name": "Ryan Heisler",
-                        "url": "https://ryanheisler.com"
-                    }
-                ]
-            }
-        </script>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Accessibility Testing is Essential - Ryan Heisler's Blog</title>
+    <meta name="author" content="Ryan Heisler">
+    <meta name="description"
+          content="We who build software choose who is disabled by our products and who isn't. We must test our products for accessibility when testing for usability">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Accessibility Testing is Essential",
+        "image": [
+          "images/rep-1x1.jpg",
+          "images/rep-4x3.jpg",
+          "images/rep-16x9.jpg"
+        ],
+        "datePublished": "2025-01-12T20:50:00+00:00",
+        "dateModified": "2025-01-12T20:50:00+00:00",
+        "author": [
+          {
+            "@type": "Person",
+            "name": "Ryan Heisler",
+            "url": "https://ryanheisler.com"
+          }
+        ]
+      }
+    </script>
 
-        <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png"
-              sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg" />
-        <link rel="shortcut icon" href="../../favicon/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180"
-              href="../../favicon/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Ryan Heisler" />
-        <link rel="manifest" href="../../manifest.webmanifest">
-        <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
-        <meta name="theme-color" content="#FDFAF1" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png"
+          sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="../../favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Ryan Heisler" />
+    <link rel="manifest" href="../../manifest.webmanifest">
+    <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FDFAF1" media="(prefers-color-scheme: light)">
 
-        <link rel="stylesheet" href="../../common.css">
-        <link rel="stylesheet" href="../../blog.css">
-        <link rel="stylesheet" href="../../fonts/inter.css">
-        <link rel="stylesheet" href="../../fonts/jetbrains-mono.css">
-    </head>
-    <body>
-        <h1>Accessi&shy;bility Testing is Essential for Creating a Good User Experience</h1>
-        <p class="byline">
-            By Ryan Heisler, published
-            <time datetime="2025-01-12">January 12, 2025</time>
-        </p>
-        <div class="image-container">
-            <img srcset="images/banner-640.jpg 640w,
+    <link rel="stylesheet" href="../../common.css">
+    <link rel="stylesheet" href="../../blog.css">
+    <link rel="stylesheet" href="../../fonts/inter.css">
+    <link rel="stylesheet" href="../../fonts/jetbrains-mono.css">
+  </head>
+  <body>
+    <div class="content-container">
+      <h1>Accessi&shy;bility Testing is Essential for Creating a Good User Experience</h1>
+      <p class="byline">
+        By Ryan Heisler, published
+        <time datetime="2025-01-12">January 12, 2025</time>
+      </p>
+      <div class="image-container">
+        <img srcset="images/banner-640.jpg 640w,
                          images/banner-768.jpg 768w,
                          images/banner-1024.jpg 1024w,
                          images/banner-1200.jpg 1200w,
@@ -61,35 +62,34 @@
                          images/banner-1920.jpg 1920w,
                          images/banner-2560.jpg 2560w,
                          images/banner-4080.jpg 4080w,"
-                 sizes="95vw"
-                 src="images/banner-640.jpg"
-                 alt="A person in the distance walks across the coast of Maine, USA. The shore is covered in sharp rocks and boulders, seaweed, and further away, pine and other trees">
-        </div>
-        <p>Accessibility is a part of usability that improves the user experience for everyone, and yet so many project
-            teams I've worked with spend almost none of their time on it, if any. When I bring it up, they acknowledge
-            it as important, but the expectation is generally that the engineers can just make their code comply with
-            the <a href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines
-                (WCAG)</a> and the app will be fully accessible to all.</p>
-        <p>Let me be very clear to anyone who participates in building software: writing WCAG-compliant code is not
-            enough! As my volunteer team has built out <a href="https://local-gov.id">a resource site for Washtenaw
-                County ID holders</a>, we've discovered a number of accessibility issues in code that follows all the
-            rules.</p>
-        <p>Testing your own application can help you catch obviously bad experiences before you get feedback from your
-            users and fine-tune. As an industry, we know this is true and we regularly test our apps with a keyboard, a
-            mouse, a monitor, and/or a touch-screen device before we put functionality in front of our users. We think
-            we would never release an obviously bad user experience, but we do it all the time, because we're not
-            testing our own apps with accessibility in mind.</p>
+             sizes="95vw"
+             src="images/banner-640.jpg"
+             alt="A person in the distance walks across the coast of Maine, USA. The shore is covered in sharp rocks and boulders, seaweed, and further away, pine and other trees">
+      </div>
+      <p>Accessibility is a part of usability that improves the user experience for everyone, and yet so many project
+        teams I've worked with spend almost none of their time on it, if any. When I bring it up, they acknowledge it as
+        important, but the expectation is generally that the engineers can just make their code comply with the <a
+         href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines (WCAG)</a> and
+        the app will be fully accessible to all.</p>
+      <p>Let me be very clear to anyone who participates in building software: writing WCAG-compliant code is not
+        enough! As my volunteer team has built out <a href="https://local-gov.id">a resource site for Washtenaw County
+          ID holders</a>, we've discovered a number of accessibility issues in code that follows all the rules.</p>
+      <p>Testing your own application can help you catch obviously bad experiences before you get feedback from your
+        users and fine-tune. As an industry, we know this is true and we regularly test our apps with a keyboard, a
+        mouse, a monitor, and/or a touch-screen device before we put functionality in front of our users. We think we
+        would never release an obviously bad user experience, but we do it all the time, because we're not testing our
+        own apps with accessibility in mind.</p>
 
-        <h2>Inputs and Labels on Android Firefox and TalkBack</h2>
-        <p>"Every input needs a label" - most developers I've met know about this regardless of their level of knowledge
-            of digital accessibility. And they all know you can either nest the input inside the label or associate them
-            via the input's ID. We're told they both work the same way, but they actually don't.</p>
+      <h2>Inputs and Labels on Android Firefox and TalkBack</h2>
+      <p>"Every input needs a label" - most developers I've met know about this regardless of their level of knowledge
+        of digital accessibility. And they all know you can either nest the input inside the label or associate them via
+        the input's ID. We're told they both work the same way, but they actually don't.</p>
 
-        <div class="code-container">
-            <p class="visually-hidden">the following is an HTML code sample</p>
-            <div class="code-label" aria-hidden="true">HTML</div>
+      <div class="code-container">
+        <p class="visually-hidden">the following is an HTML code sample</p>
+        <div class="code-label" aria-hidden="true">HTML</div>
 
-            <pre class="code-block">
+        <pre class="code-block">
 <code>&lt;!-- These are not equivalent! --&gt;
 
 &lt;label&gt;
@@ -99,113 +99,114 @@
 
 &lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
 &lt;input id=&quot;name&quot; /&gt;</code></pre>
-        </div>
+      </div>
 
-        <p>As of this writing, labels and inputs associated only by the "id" attribute provide a worse experience on
-            Android TalkBack in the latest Firefox. When the user focuses the label, TalkBack reads the label twice.
-            This won't prevent most users from using the input, but it's potentially confusing.</p>
-        <p>When my team ran into this issue, we couldn't find any documentation of it online, but we figured out the
-            cause through experimentation. Nesting the input in the label was very easy for us to do, but we wouldn't
-            have known to do it if we hadn't been testing with a wide range of platforms and screen readers.</p>
+      <p>As of this writing, labels and inputs associated only by the "id" attribute provide a worse experience on
+        Android TalkBack in the latest Firefox. When the user focuses the label, TalkBack reads the label twice. This
+        won't prevent most users from using the input, but it's potentially confusing.</p>
+      <p>When my team ran into this issue, we couldn't find any documentation of it online, but we figured out the cause
+        through experimentation. Nesting the input in the label was very easy for us to do, but we wouldn't have known
+        to do it if we hadn't been testing with a wide range of platforms and screen readers.</p>
 
-        <h2>Table with Table Header and Caption Elements on iOS</h2>
-        <p>Inputs and labels showed us that elements used correctly according to their documentation don't always
-            provide the best experience. More complex elements require more testing to make sure they work as you
-            expect. Various screen readers are known to have issues describing tables - this was mentioned specifically
-            as part of my early education in accessibility.</p>
-        <p>When we were building a table for our web app, we were extra careful to follow best practices. However, when
-            we tested the table on iOS with VoiceOver, it described the table saying, "Data table
-            &lt;caption&gt;, row negative ninety septillion, twenty quintiliion, twenty-three quadrillion, three-hundred
-            seventy-two trillion, thirty-six billion, eight-hundred fifty-four million, seven-hundred seventy-five
-            thousand, eight-hundred eight, table start..."
-        </p>
-        <p>That number stuck out to us as oddly specific - we didn't even have any numbers in the table, and it only had
-            two columns and a few rows.With some searching we realized that it's the minimum signed 64-bit integer,
-            except it has two zeroes after each of the first two digits. In lay terms, it’s a number that can easily
-            show up because of a common kind of bug.</p>
-        <p>It's a bizarre experience for a user to hear that when trying to understand a table, not least because they
-            might think the number is data from the table itself. Even if they understand what's going on, it takes
-            about 12 seconds just to read that number at the default VoiceOver reading speed! Can you imagine having to
-            wait 12 seconds just to hear the next part of the table?</p>
-        <p>So what was going on? Our search also led us to a <a
-                href="https://www.powermapper.com/tests/screen-readers/tables/table-caption/">page on PowerMapper where
-            this issue has been documented since iOS 13</a>, which came out in 2019 (over 5 years ago now!). This page
-            was very helpful to understand the cause and solution. Testing confirmed that having a caption and table
-            headers in the table was the root cause of the issue. Captions are the standard way to label an HTML table
-            according to the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/caption">Mozilla
-                Developer Network caption element page</a> and the <a
-                    href="https://www.w3.org/WAI/tutorials/tables/caption-summary/">World Wide Web Consortium (W3C)
-                caption and summary page</a>, so this is another example of best practices leading to a bad experience.
-        </p>
-        <p>We found other issues with our table, including one header being read when a different header was selected.
-            Considering this, the small number of columns in our data, and the fact that we expect most of our users to
-            be on mobile devices, we decided to structure the page differently and avoid the table altogether. This was
-            easy for us, but other developers with the same problem may have to keep the table and find another way
-            around the issue. It's important to consider the constraints of your product and target users, and
-            experiment to find a way to improve the experience within those constraints.</p>
+      <h2>Table with Table Header and Caption Elements on iOS</h2>
+      <p>Inputs and labels showed us that elements used correctly according to their documentation don't always provide
+        the best experience. More complex elements require more testing to make sure they work as you expect. Various
+        screen readers are known to have issues describing tables - this was mentioned specifically as part of my early
+        education in accessibility.</p>
+      <p>When we were building a table for our web app, we were extra careful to follow best practices. However, when we
+        tested the table on iOS with VoiceOver, it described the table saying, "Data table&lt;caption&gt;, row negative
+        ninety septillion, twenty quintiliion, twenty-three quadrillion, three-hundred seventy-two trillion, thirty-six
+        billion, eight-hundred fifty-four million, seven-hundred seventy-five thousand, eight-hundred eight, table
+        start..."
+      </p>
+      <p>That number stuck out to us as oddly specific - we didn't even have any numbers in the table, and it only had
+        two columns and a few rows.With some searching we realized that it's the minimum signed 64-bit integer, except
+        it has two zeroes after each of the first two digits. In lay terms, it’s a number that can easily show up
+        because of a common kind of bug.</p>
+      <p>It's a bizarre experience for a user to hear that when trying to understand a table, not least because they
+        might think the number is data from the table itself. Even if they understand what's going on, it takes about 12
+        seconds just to read that number at the default VoiceOver reading speed! Can you imagine having to wait 12
+        seconds just to hear the next part of the table?</p>
+      <p>So what was going on? Our search also led us to a <a
+       href="https://www.powermapper.com/tests/screen-readers/tables/table-caption/">page on PowerMapper where this
+        issue has been documented since iOS 13</a>, which came out in 2019 (over 5 years ago now!). This page was very
+        helpful to understand the cause and solution. Testing confirmed that having a caption and table headers in the
+        table was the root cause of the issue. Captions are the standard way to label an HTML table according to the <a
+         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/caption">Mozilla Developer Network caption
+          element page</a> and the <a
+         href="https://www.w3.org/WAI/tutorials/tables/caption-summary/">World Wide Web Consortium (W3C) caption and
+          summary page</a>, so this is another example of best practices leading to a bad experience.
+      </p>
+      <p>We found other issues with our table, including one header being read when a different header was selected.
+        Considering this, the small number of columns in our data, and the fact that we expect most of our users to be
+        on mobile devices, we decided to structure the page differently and avoid the table altogether. This was easy
+        for us, but other developers with the same problem may have to keep the table and find another way around the
+        issue. It's important to consider the constraints of your product and target users, and experiment to find a way
+        to improve the experience within those constraints.</p>
 
-        <h2>Focus trap that doesn't trap focus</h2>
-        <p>We were building a collapsible menu to contain the site's navigation links in narrow windows where the links
-            wouldn't fit across the top of the page. Our first idea was to cover the entire page with the menu and trap
-            the user's focus until they closed the menu or activated one of the links. The focus trap would cycle their
-            focus to the top of the menu if they tried to tab past the last item.</p>
-        <p>Let me be clear, this is the wrong way to implement a collapsing menu! According to the W3C's Web
-            Accessibility Initiative's (WAI) pages about the <a
-                    href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">Menu Button Pattern</a> and the <a
-                    href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/">Menu and Menubar Pattern</a>, menus should
-            not capture focus. We didn't know that at the time, but testing our implementation for the experience with a
-            screen reader helped us figure it out.</p>
-        <p>The way we made this work was by writing a relatively complex set of functions that would run when the user
-            pressed a key with focus on or in the menu. That should have been our first clue - if you're implementing a
-            lot of JavaScript to do something you find on most websites, you might just be building a custom widget. And
-            if you're doing that, you should first check to see if there's a native HTML element that can do what you
-            want. In our case, <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details">the details
-                element</a> does everything we need.</p>
-        <p>We didn't find the details element, and we also didn't take the next best step, which is to look around the
-            internet for a guide on the best practices for the pattern you're implementing. The <a
-                    href="https://www.w3.org/WAI/ARIA/apg/patterns/">WAI ARIA Authoring Practices Guide</a> is a great
-            place to start, and would have told us not to trap focus in this case.
-        </p>
-        <p>Doing none of that, we plowed ahead with our implementation and ran into the problem. When you move focus to
-            the next item with a mobile screen reader, there is no keyboard event so focus isn't trapped. In fact,
-            TalkBack and VoiceOver don't trigger any event at all when they move focus to the next item, so there's no
-            programmatic way to react to a user doing that.</p>
-        <p>For us, this meant a TalkBack user could move focus, including the highlighted outline, past the end of the
-            menu to an element on the page behind the menu that wasn't visible. This is a non-equivalent and confusing
-            experience for screen-reader users, especially for someone using the screen reader's focus highlighting to
-            find the focused element visually on the screen. There's really no world in which it's an acceptable user
-            experience.</p>
-        <p>Considering our audience and the technologies we expect them to use, we were able to remove the focus trap
-            and stop covering the screen with the menu, pushing the page contents down instead. We considered using <a
-                    href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert">the inert
-                attribute</a> on the page behind the menu, but it's relatively new and many of our users may use older
-            browser versions that don't support inert. As always, your best solution depends on your audience.</p>
+      <h2>Focus trap that doesn't trap focus</h2>
+      <p>We were building a collapsible menu to contain the site's navigation links in narrow windows where the links
+        wouldn't fit across the top of the page. Our first idea was to cover the entire page with the menu and trap the
+        user's focus until they closed the menu or activated one of the links. The focus trap would cycle their focus to
+        the top of the menu if they tried to tab past the last item.</p>
+      <p>Let me be clear, this is the wrong way to implement a collapsing menu! According to the W3C's Web Accessibility
+        Initiative's (WAI) pages about the <a
+         href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">Menu Button Pattern</a> and the <a
+         href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/">Menu and Menubar Pattern</a>, menus should not capture
+        focus. We didn't know that at the time, but testing our implementation for the experience with a screen reader
+        helped us figure it out.</p>
+      <p>The way we made this work was by writing a relatively complex set of functions that would run when the user
+        pressed a key with focus on or in the menu. That should have been our first clue - if you're implementing a lot
+        of JavaScript to do something you find on most websites, you might just be building a custom widget. And if
+        you're doing that, you should first check to see if there's a native HTML element that can do what you want. In
+        our case, <a
+         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details">the details element</a> does
+        everything we need.</p>
+      <p>We didn't find the details element, and we also didn't take the next best step, which is to look around the
+        internet for a guide on the best practices for the pattern you're implementing. The <a
+         href="https://www.w3.org/WAI/ARIA/apg/patterns/">WAI ARIA Authoring Practices Guide</a> is a great place to
+        start, and would have told us not to trap focus in this case.
+      </p>
+      <p>Doing none of that, we plowed ahead with our implementation and ran into the problem. When you move focus to
+        the next item with a mobile screen reader, there is no keyboard event so focus isn't trapped. In fact, TalkBack
+        and VoiceOver don't trigger any event at all when they move focus to the next item, so there's no programmatic
+        way to react to a user doing that.</p>
+      <p>For us, this meant a TalkBack user could move focus, including the highlighted outline, past the end of the
+        menu to an element on the page behind the menu that wasn't visible. This is a non-equivalent and confusing
+        experience for screen-reader users, especially for someone using the screen reader's focus highlighting to find
+        the focused element visually on the screen. There's really no world in which it's an acceptable user
+        experience.</p>
+      <p>Considering our audience and the technologies we expect them to use, we were able to remove the focus trap and
+        stop covering the screen with the menu, pushing the page contents down instead. We considered using<a
+         href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert">the inert attribute</a> on the
+        page behind the menu, but it's relatively new and many of our users may use older browser versions that don't
+        support inert. As always, your best solution depends on your audience.
+      </p>
 
-        <h2>Why Does this Matter?</h2>
-        <p>A disabled user is not disabled by their body. We disable users when we build products they can't perceive or
-            use. We as an industry decide every day who is disabled by our products and who isn't.</p>
-        <p>There is nothing inherently natural about the ability to use a keyboard, mouse, and monitor to interact with
-            a website. The information and functionality in a computer is just electrical signals. No human can perceive
-            it or interact with it as it exists in the physical world - we all use specially-made devices like monitors
-            and keyboards to get some benefit from it.</p>
-        <p>Most people reading this page need a keyboard to fill in a form on a web page, but we don't think of this as
-            a disability. So why is someone else considered "disabled" when they need a voice-to-text interface to do
-            the same? It's based on the assumptions that software builders make - that users like them are "normal."</p>
-        <p>When we build software and test it, we decide who can access it using those assumptions. We generally
-            consider a page or feature "done" if we can perceive it and interact with it using a monitor, mouse, and
-            keyboard. Our implicit bias tells us that anyone who can't do that must have some deficiency in their body
-            that stops them from interacting with our software like a "normal" person can, but that's not true. We
-            disable them when we choose to build software in a way that excludes the devices they use to interact with
-            our software.</p>
-        <p>We as an industry have the power and responsibility to build products that work for all. We have no excuse to
-            remain ignorant of the breadth of ways people interact with our software. So, if we truly want to build
-            software that works for people, testing with assistive technologies is an essential, bare-minimum part of
-            the software development lifecycle.</p>
-        <hr>
-        <p class="italic">This post is a modified version of an article I wrote and
-            originally published on
-            my employer's blog: <a
-                    href="https://artium.ai/insights/accessibility-testing-is-an-essential-part-of-user-experience-testing">
-                Accessibility Testing is an Essential Part of User Experience Testing</a></p>
-    </body>
+      <h2>Why Does this Matter?</h2>
+      <p>A disabled user is not disabled by their body. We disable users when we build products they can't perceive or
+        use. We as an industry decide every day who is disabled by our products and who isn't.</p>
+      <p>There is nothing inherently natural about the ability to use a keyboard, mouse, and monitor to interact with a
+        website. The information and functionality in a computer is just electrical signals. No human can perceive it or
+        interact with it as it exists in the physical world - we all use specially-made devices like monitors and
+        keyboards to get some benefit from it.</p>
+      <p>Most people reading this page need a keyboard to fill in a form on a web page, but we don't think of this as a
+        disability. So why is someone else considered "disabled" when they need a voice-to-text interface to do the
+        same? It's based on the assumptions that software builders make - that users like them are "normal."</p>
+      <p>When we build software and test it, we decide who can access it using those assumptions. We generally consider
+        a page or feature "done" if we can perceive it and interact with it using a monitor, mouse, and keyboard. Our
+        implicit bias tells us that anyone who can't do that must have some deficiency in their body that stops them
+        from interacting with our software like a "normal" person can, but that's not true. We disable them when we
+        choose to build software in a way that excludes the devices they use to interact with our software.</p>
+      <p>We as an industry have the power and responsibility to build products that work for all. We have no excuse to
+        remain ignorant of the breadth of ways people interact with our software. So, if we truly want to build software
+        that works for people, testing with assistive technologies is an essential, bare-minimum part of the software
+        development lifecycle.</p>
+      <hr>
+      <footer class="italic">This post is a modified version of an article I wrote and originally published on my
+        employer's blog: <a
+         href="https://artium.ai/insights/accessibility-testing-is-an-essential-part-of-user-experience-testing">
+          Accessibility Testing is an Essential Part of User Experience Testing</a></footer>
+    </div>
+  </body>
 </html>

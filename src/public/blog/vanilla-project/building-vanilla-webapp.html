@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <title>Building a Vanilla Web Application - Ryan Heisler's Blog</title>
-        <meta name="author" content="Ryan Heisler">
-        <meta name="description"
-              content="I'm building a web app with Vanilla JS, HTML, and CSS! You won't believe why...">
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "BlogPosting",
-                "headline": "Building a Vanilla Web Application",
-                "image": [
-                    "images/rep-1x1.jpg",
-                    "images/rep-4x3.jpg",
-                    "images/rep-16x9.jpg"
-                ],
-                "datePublished": "2025-02-13T21:00:00+00:00",
-                "dateModified": "2025-02-13T21:00:00+00:00",
-                "author": [
-                    {
-                        "@type": "Person",
-                        "name": "Ryan Heisler",
-                        "url": "https://ryanheisler.com"
-                    }
-                ]
-            }
-        </script>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Building a Vanilla Web Application - Ryan Heisler's Blog</title>
+    <meta name="author" content="Ryan Heisler">
+    <meta name="description"
+          content="I'm building a web app with Vanilla JS, HTML, and CSS! You won't believe why...">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Building a Vanilla Web Application",
+        "image": [
+          "images/rep-1x1.jpg",
+          "images/rep-4x3.jpg",
+          "images/rep-16x9.jpg"
+        ],
+        "datePublished": "2025-02-13T21:00:00+00:00",
+        "dateModified": "2025-02-13T21:00:00+00:00",
+        "author": [
+          {
+            "@type": "Person",
+            "name": "Ryan Heisler",
+            "url": "https://ryanheisler.com"
+          }
+        ]
+      }
+    </script>
 
-        <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png"
-              sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg" />
-        <link rel="shortcut icon" href="../../favicon/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180"
-              href="../../favicon/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="Ryan Heisler" />
-        <link rel="manifest" href="../../manifest.webmanifest">
-        <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
-        <meta name="theme-color" content="#FDFAF1" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png"
+          sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="../../favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Ryan Heisler" />
+    <link rel="manifest" href="../../manifest.webmanifest">
+    <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FDFAF1" media="(prefers-color-scheme: light)">
 
-        <link rel="stylesheet" href="../../common.css">
-        <link rel="stylesheet" href="../../blog.css">
-        <link rel="stylesheet" href="../../fonts/inter.css">
-        <link rel="stylesheet" href="../../fonts/jetbrains-mono.css">
-    </head>
-    <body>
-        <h1>Building a Vanilla Web Application</h1>
-        <p class="byline">
-            By Ryan Heisler, published
-            <time datetime="2025-02-13">February 13, 2025</time>
-        </p>
-        <div class="image-container">
-            <img srcset="images/banner-640.jpg 640w,
+    <link rel="stylesheet" href="../../common.css">
+    <link rel="stylesheet" href="../../blog.css">
+    <link rel="stylesheet" href="../../fonts/inter.css">
+    <link rel="stylesheet" href="../../fonts/jetbrains-mono.css">
+  </head>
+  <body>
+    <div class="content-container">
+      <h1>Building a Vanilla Web Application</h1>
+      <p class="byline">
+        By Ryan Heisler, published
+        <time datetime="2025-02-13">February 13, 2025</time>
+      </p>
+      <div class="image-container">
+        <img srcset="images/banner-640.jpg 640w,
                          images/banner-768.jpg 768w,
                          images/banner-1024.jpg 1024w,
                          images/banner-1200.jpg 1200w,
@@ -61,69 +62,58 @@
                          images/banner-1920.jpg 1920w,
                          images/banner-2560.jpg 2560w,
                          images/banner-full.jpg 3264w,"
-                 sizes="95vw"
-                 src="images/banner-640.jpg"
-                 alt="a tiny, brown slug crawls across a hand toward the camera, antennae extended">
-        </div>
-        <p>
-            I'm working on a learning exercise to build a web application using the most vanilla tech stack I can. The
-            blog you're reading now is part of this project. I also plan to add a multiplayer implementation of
-            <a href="https://en.wikipedia.org/wiki/Yacht_(dice_game)">Yacht Dice</a>. My goals are:
-        </p>
-        <ol>
-            <li>to learn more about how web applications work without frameworks like React</li>
-            <li>
-                to test my own ideas about using frameworks to build web apps. Over the last 8 years, I've consulted on
-                over 40 different enterprise codebases with clients in all domains and tech stacks. I've come to believe
-                that all the layers of abstraction we use to "go faster" are actually as slow or slower than building
-                with vanilla JS, HTML, and CSS, and I want to put that to the test.
-            </li>
-            <li>
-                to test my own ideas about maintaining web apps: I think if I use fewer technologies that change
-                rapidly, the application will be easier to maintain over time. I built an app in Angular once, and
-                maintaining it now is virtually impossible. It would take inordinate amounts of time to update all the
-                dependency versions and relearn Angular and the codebase well enough to make changes.
-            </li>
-            <li>
-                to experiment with limiting code obfuscation and minification. I believe users should be able to easily
-                dig into the code for their own security. Since this project will encompass a blog and a game and I
-                don't believe this this web application will require very large payloads.and I want to know what's
-                possible with vanilla so I can be better informed when working with something like React.
-            </li>
-            <li>
-                to have fun building something from scratch! I often have to work with large, old, crufty codebases, and
-                in an enterprise environment it almost never makes sense to throw something away and start over. I can
-                get that idea out of my system on my own project.
-            </li>
-        </ol>
-        <p>As I make progress, I'll post here about issues I run into if I think the lessons learned are relevant. The
-            tech stack I'm using is:</p>
-        <ul>
-            <li>
-                A NodeJS server using Express. Express is the one dependency for production functionality that I have so
-                far, and I'll be very reluctant to add others. Dependencies break, deprecate, or conflict with each
-                other over time, or require significant updates to ensure continued functionality. I believe NodeJS and
-                Express are stable enough not to change significantly or become unavailable in the next decade.
-            </li>
-            <li>
-                The code for the server and frontend scripts is written in TypeScript. Having some type safety is
-                important to my development process, and I don't expect TypeScript to change as quickly as something
-                like React.
-            </li>
-            <li>
-                I use Parcel to "build" the application, which includes transpiling to javascript, optimizing the CSS a
-                little, and copying the files to a distribution directory to be run in production. I considered writing
-                a script to do this myself, but it would have taken a long time and involved a lot of tedious string
-                parsing. Using Parcel now doesn't prevent me from using another system in the future, but it does save
-                me time now.
-            </li>
-            <li>
-                I test-drive all my code with tests focused on the user experience and accessibility. My tests use <a
-                    href="https://vitest.dev/">Vitest</a> as the test runner, <a
-                    href="https://testing-library.com/docs/dom-testing-library/intro/">DOM Testing Library</a> for
-                rendering and assertions, and <a href="https://mswjs.io/">Mock Service Worker</a> to avoid mocking my
-                own code.
-            </li>
-        </ul>
-    </body>
+             sizes="95vw"
+             src="images/banner-640.jpg"
+             alt="a tiny, brown slug crawls across a hand toward the camera, antennae extended">
+      </div>
+      <p>I'm working on a learning exercise to build a web application using the most vanilla tech stack I can. The blog
+        you're reading now is part of this project. I also plan to add a multiplayer implementation of <a
+         href="https://en.wikipedia.org/wiki/Yacht_(dice_game)">Yacht Dice</a>. My goals are:
+      </p>
+      <ol>
+        <li>to learn more about how web applications work without frameworks like React</li>
+        <li>to test my own ideas about using frameworks to build web apps. Over the last 8 years, I've consulted on over
+          40 different enterprise codebases with clients in all domains and tech stacks. I've come to believe that all
+          the layers of abstraction we use to "go faster" are actually as slow or slower than building with vanilla JS,
+          HTML, and CSS, and I want to put that to the test.
+        </li>
+        <li>to test my own ideas about maintaining web apps: I think if I use fewer technologies that change rapidly,
+          the application will be easier to maintain over time. I built an app in Angular once, and maintaining it now
+          is virtually impossible. It would take inordinate amounts of time to update all the dependency versions and
+          relearn Angular and the codebase well enough to make changes.
+        </li>
+        <li>to experiment with limiting code obfuscation and minification. I believe users should be able to easily dig
+          into the code for their own security. Since this project will encompass a blog and a game and I don't believe
+          this this web application will require very large payloads.and I want to know what's possible with vanilla so
+          I can be better informed when working with something like React.
+        </li>
+        <li>to have fun building something from scratch! I often have to work with large, old, crufty codebases, and in
+          an enterprise environment it almost never makes sense to throw something away and start over. I can get that
+          idea out of my system on my own project.
+        </li>
+      </ol>
+      <p>As I make progress, I'll post here about issues I run into if I think the lessons learned are relevant. The
+        tech stack I'm using is:</p>
+      <ul>
+        <li>A NodeJS server using Express. Express is the one dependency for production functionality that I have so
+          far, and I'll be very reluctant to add others. Dependencies break, deprecate, or conflict with each other over
+          time, or require significant updates to ensure continued functionality. I believe NodeJS and Express are
+          stable enough not to change significantly or become unavailable in the next decade.
+        </li>
+        <li>The code for the server and frontend scripts is written in TypeScript. Having some type safety is important
+          to my development process, and I don't expect TypeScript to change as quickly as something like React.
+        </li>
+        <li>I use Parcel to "build" the application, which includes transpiling to javascript, optimizing the CSS a
+          little, and copying the files to a distribution directory to be run in production. I considered writing a
+          script to do this myself, but it would have taken a long time and involved a lot of tedious string parsing.
+          Using Parcel now doesn't prevent me from using another system in the future, but it does save me time now.
+        </li>
+        <li>I test-drive all my code with tests focused on the user experience and accessibility. My tests use <a
+         href="https://vitest.dev/">Vitest</a> as the test runner, <a
+         href="https://testing-library.com/docs/dom-testing-library/intro/">DOM Testing Library</a> for rendering and
+          assertions, and <a href="https://mswjs.io/">Mock Service Worker</a> to avoid mocking my own code.
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>

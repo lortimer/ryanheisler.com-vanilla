@@ -2,7 +2,6 @@
 
 ## Blog
 
-- [ ] Width 75% isn't working (I think I just never applied it to the text)
 - [ ] Add link back to the home page
 
 - [ ] Add skip-nav link
