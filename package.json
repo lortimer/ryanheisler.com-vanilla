@@ -48,7 +48,8 @@
     "frontend": {
       "source": [
         "./src/public/index.html",
-        "./src/public/heisldice/heisldice.html"
+        "./src/public/heisldice/heisldice.html",
+        "./src/public/googlec8167c7efd0aec0a.html"
       ],
       "distDir": "./dist/public",
       "optimize": false
