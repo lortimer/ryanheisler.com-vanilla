@@ -10,11 +10,6 @@
 ## Server
 
 - [ ] Set server port from env var and create different ones per env - test, dev, and prod
-- [X] Run tests against built code, not typescript
-    - [X] Create "test" target for Parcel with its own output directory
-    - [X] Build test target before tests
-    - [X] Run tests from built code
-    - [X] Add Typescript syntax back to dice.ts file
 
 ## When moving from Cloudfront to Node Server hosted somewhere
 
