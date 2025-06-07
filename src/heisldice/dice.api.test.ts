@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import supertest from "supertest";
 import { app } from "../server";
-import { randomInteger } from "../public/heisldice/random";
+import { randomInteger } from "./random";
 
-vi.mock("../public/heisldice/random", () => ({
+vi.mock("./random", () => ({
     randomInteger: vi.fn().mockName("randomInteger")
 }));
 

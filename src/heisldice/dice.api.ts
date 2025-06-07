@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { randomInteger } from "../public/heisldice/random";
+import { randomInteger } from "./random";
 
 export const rollDice = (_: Request, response: Response) => {
     response.setHeader("Content-Type", "application/json");

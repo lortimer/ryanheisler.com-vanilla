@@ -1,6 +1,7 @@
 .idea
 node_modules
 dist
+.test-dist
 .parcel-cache
 local-assets
 src/public/fonts/files/

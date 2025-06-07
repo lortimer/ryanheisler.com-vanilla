@@ -3,13 +3,17 @@
   "version": "0.0.0",
   "description": "Ryan Heisler's personal website",
   "scripts": {
-    "api-dev": "nodemon ./dist/server.js",
+    "build-tests": "npm run clean-tests && parcel build --target test",
+    "clean-tests": "rm -rf ./.test-dist ./.parcel-cache",
+    "test": "npm run build-tests && vitest --run",
+
     "api-watch": "tsc --watch",
-    "build": "npm run clean && tsc && parcel build",
-    "clean": "rm -rf ./dist",
+    "api-dev": "nodemon ./dist/server.js",
     "frontend-dev": "parcel watch --no-cache --target frontend",
-    "start": "node dist/server.js",
-    "test": "vitest --run"
+
+    "build": "npm run clean && tsc && parcel build --target frontend",
+    "clean": "rm -rf ./dist",
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -53,6 +57,16 @@
       ],
       "distDir": "./dist/public",
       "optimize": false
+    },
+    "test": {
+      "source": [
+        "./src/public/index.html",
+        "./src/public/heisldice/heisldice.html",
+        "./src/public/heisldice/delete-me/delete-me.html"
+      ],
+      "distDir": "./.test-dist/src/public",
+      "optimize": false,
+      "publicUrl": "./"
     }
   }
 }

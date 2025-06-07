@@ -11,8 +11,10 @@ const rollDice = async () => {
 
 const button = document.getElementById("dice-roll-button");
 
-button?.addEventListener("click", (event: MouseEvent) => {
+// button?.addEventListener("click", (event: MouseEvent) => {
+button?.addEventListener("click", (event) => {
     const button = event.target as HTMLButtonElement;
+    // const button = event.target;
     if (button && button.id === "dice-roll-button") {
         rollDice();
     }
