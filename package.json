@@ -53,7 +53,8 @@
       "source": [
         "./src/public/index.html",
         "./src/public/heisldice/heisldice.html",
-        "./src/public/googlec8167c7efd0aec0a.html"
+        "./src/public/googlec8167c7efd0aec0a.html",
+        "./src/public/sitemap.xml"
       ],
       "distDir": "./dist/public",
       "optimize": false
