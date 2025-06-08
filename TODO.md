@@ -3,7 +3,7 @@
 ## Blog
 
 - [ ] Figure out auto-renewal of certificate
-- [ ] Add link back to the home page to blog pages
+- [ ] Add link back to the home page from blog pages
 - [ ] Add skip-nav link
 - [ ] Serve blog from Express server, not Parcel static
 - [ ] Contact link
@@ -27,5 +27,4 @@
 
 ## Google
 
-- [X] Add sitemap
 - [ ] Add noindex for things like the font license files

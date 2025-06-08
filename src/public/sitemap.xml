@@ -7,50 +7,50 @@
     <url>
         <loc>https://blog.ryanheisler.com/</loc>
         <lastmod>2025-02-14</lastmod>
-        <priority>1.00</priority>
         <changefreq>monthly</changefreq>
+        <priority>1.00</priority>
     </url>
     <url>
         <loc>https://blog.ryanheisler.com/credits-and-licenses.html</loc>
         <lastmod>2025-02-14</lastmod>
-        <priority>0.80</priority>
         <changefreq>yearly</changefreq>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://blog.ryanheisler.com/licenses/inter-license.txt</loc>
         <lastmod>2025-02-14</lastmod>
-        <priority>0.64</priority>
         <changefreq>never</changefreq>
+        <priority>0.64</priority>
     </url>
     <url>
         <loc>https://blog.ryanheisler.com/licenses/jetbrains-mono-license.txt</loc>
         <lastmod>2025-02-14</lastmod>
-        <priority>0.64</priority>
         <changefreq>never</changefreq>
+        <priority>0.64</priority>
     </url>
     <url>
         <loc>https://blog.ryanheisler.com/licenses/selenized-license.txt</loc>
         <lastmod>2025-02-14</lastmod>
-        <priority>0.64</priority>
         <changefreq>never</changefreq>
+        <priority>0.64</priority>
     </url>
 
     <url>
         <loc>https://blog.ryanheisler.com/blog/accessibility/accessibility-testing-essential.html</loc>
         <lastmod>2025-01-12</lastmod>
-        <priority>0.80</priority>
         <changefreq>never</changefreq>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://blog.ryanheisler.com/blog/vanilla-project/building-vanilla-webapp.html</loc>
         <lastmod>2025-02-13</lastmod>
-        <priority>0.80</priority>
         <changefreq>never</changefreq>
+        <priority>0.80</priority>
     </url>
     <url>
         <loc>https://blog.ryanheisler.com/blog/vanilla-project/fetch-in-jsdom.html</loc>
         <lastmod>2025-02-14</lastmod>
-        <priority>0.80</priority>
         <changefreq>never</changefreq>
+        <priority>0.80</priority>
     </url>
 </urlset>
