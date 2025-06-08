@@ -6,11 +6,9 @@
     "build-tests": "npm run clean-tests && parcel build --target test",
     "clean-tests": "rm -rf ./.test-dist ./.parcel-cache",
     "test": "npm run build-tests && vitest --run",
-
     "api-watch": "tsc --watch",
     "api-dev": "nodemon ./dist/server.js",
     "frontend-dev": "parcel watch --no-cache --target frontend",
-
     "build": "npm run clean && tsc && parcel build --target frontend",
     "clean": "rm -rf ./dist",
     "start": "node dist/server.js"
@@ -46,7 +44,7 @@
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4",
-    "vitest": "^2.1.8"
+    "vitest": "^3.2.2"
   },
   "targets": {
     "frontend": {
@@ -62,8 +60,7 @@
     "test": {
       "source": [
         "./src/public/index.html",
-        "./src/public/heisldice/heisldice.html",
-        "./src/public/heisldice/delete-me/delete-me.html"
+        "./src/public/heisldice/heisldice.html"
       ],
       "distDir": "./.test-dist/src/public",
       "optimize": false,
