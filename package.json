@@ -10,7 +10,7 @@
     "api-dev": "nodemon ./dist/server.js",
     "frontend-dev": "parcel watch --no-cache --target frontend",
     "build": "npm run clean && tsc && parcel build --target frontend",
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./.parcel-cache ./dist ./.test-dist",
     "start": "node dist/server.js"
   },
   "repository": {

@@ -5,10 +5,10 @@
 - [ ] Figure out auto-renewal of certificate
 - [ ] Add link back to the home page from blog pages
 - [ ] Add skip-nav link
-- [ ] Serve blog from Express server, not Parcel static
-- [ ] Contact link
-- [ ] LinkedIn link
+- [X] Add contact link to main page
+- [X] Add LinkedIn link to main page
 - [ ] Add an RSS feed
+- [ ] Serve blog from Express server, not Parcel static
 
 ## Server
 
@@ -24,7 +24,3 @@
     - X-Content-Type-Options
     - X-Frame-Options
     - X-XSS-Protection
-
-## Google
-
-- [X] Add noindex for things like the font license files
