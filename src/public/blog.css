@@ -51,6 +51,15 @@ img {
     border: 1px solid #787878;
 }
 
+.back-to-homepage-end-link {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.horizontal-rule {
+    margin: 1.5rem 0;
+}
+
 footer {
     margin-top: 1rem;
 }

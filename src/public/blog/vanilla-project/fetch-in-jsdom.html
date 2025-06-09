@@ -47,13 +47,15 @@
   </head>
   <body>
     <div class="content-container">
-      <h1>Using Fetch when Testing HTML with JSDOM</h1>
-      <p class="byline">
-        By Ryan Heisler, published
-        <time datetime="2025-02-14">February 14, 2025</time>
-      </p>
-      <div class="image-container">
-        <img srcset="images/banner-640.jpg 640w,
+      <main>
+        <article>
+          <h1>Using Fetch when Testing HTML with JSDOM</h1>
+          <p class="byline">
+            By Ryan Heisler, published
+            <time datetime="2025-02-14">February 14, 2025</time>
+          </p>
+          <div class="image-container">
+            <img srcset="images/banner-640.jpg 640w,
                          images/banner-768.jpg 768w,
                          images/banner-1024.jpg 1024w,
                          images/banner-1200.jpg 1200w,
@@ -62,54 +64,60 @@
                          images/banner-1920.jpg 1920w,
                          images/banner-2560.jpg 2560w,
                          images/banner-full.jpg 3264w,"
-             sizes="95vw"
-             src="images/banner-640.jpg"
-             alt="a tiny, brown slug crawls across a hand toward the camera, antennae extended">
-      </div>
+                 sizes="95vw"
+                 src="images/banner-640.jpg"
+                 alt="a tiny, brown slug crawls across a hand toward the camera, antennae extended">
+          </div>
 
-      <h2>Background - JSDOM vs. Browsers</h2>
-      <p tabindex="-1" id="footnote-1-ref">Most methods I know of for writing useful unit tests of web application
-        functionality share the same major drawback - <a href="#footnote-1"> the tests don't run in a web browser</a>.
-        Theoretically, they should. If the environment where you test your application is different from the environment
-        where users interact with it, the differences in how the code runs can cause bugs.
-      </p>
-      <p>Instead of a web browser, these tests run in NodeJS, which can interpret JavaScript outside of a web browser.
-        The tests run fast because you don't actually have to turn the HTML into pixels in a window. On the other hand,
-        NodeJS lacks many of the features of a web browser, like a document where HTML is rendered.
-      </p>
-      <p>Most testing frameworks deal with this by running the tests inside a harness that provides the parts of a
-        browser NodeJS doesn't have. <a href="building-vanilla-webapp.html">My vanilla web application</a> uses a
-        Javascript implementation of many web standards called <a href="https://github.com/jsdom/jsdom">JSDOM
-          (JavaScript Document Object Model)</a>. JSDOM provides a window, document, and other web-browser features. To
-        render a page and run tests against it, all I have to do is instantiate a JSDOM object with the contents of the
-        HTML file I'm testing. It can even load and run scripts that the HTML document calls for. Once I've done that, I
-        can use <a
-         href="https://testing-library.com/docs/dom-testing-library/intro">DOM Testing</a> Library the same way I would
-        in a React project where most of this is set up for me.
-      </p>
+          <h2>Background - JSDOM vs. Browsers</h2>
+          <p tabindex="-1" id="footnote-1-ref">Most methods I know of for writing useful unit tests of web application
+            functionality share the same major drawback -
+            <a href="#footnote-1"> the tests don't run in a web browser</a>
+            . Theoretically, they should. If the environment where you test your application is different from the
+            environment where users interact with it, the differences in how the code runs can cause bugs.
+          </p>
+          <p>Instead of a web browser, these tests run in NodeJS, which can interpret JavaScript outside of a web
+            browser. The tests run fast because you don't actually have to turn the HTML into pixels in a window. On the
+            other hand, NodeJS lacks many of the features of a web browser, like a document where HTML is rendered.
+          </p>
+          <p>Most testing frameworks deal with this by running the tests inside a harness that provides the parts of a
+            browser NodeJS doesn't have.
+            <a href="building-vanilla-webapp.html">My vanilla web application</a>
+            uses a Javascript implementation of many web standards called
+            <a href="https://github.com/jsdom/jsdom">JSDOM (JavaScript Document Object Model)</a>
+            . JSDOM provides a window, document, and other web-browser features. To render a page and run tests against
+            it, all I have to do is instantiate a JSDOM object with the contents of the HTML file I'm testing. It can
+            even load and run scripts that the HTML document calls for. Once I've done that, I can use
+            <a
+             href="https://testing-library.com/docs/dom-testing-library/intro">DOM Testing
+            </a>
+            Library the same way I would in a React project where most of this is set up for me.
+          </p>
 
-      <h2>What's the problem?</h2>
-      <p>JSDOM doesn't fully emulate a browser, and I recently ran into a sticky problem. When my HTML document under
-        test loaded a script that tried to use the fetch function, it would crash saying fetch wasn't defined. Fetch is
-        a function you can use to make requests to another server. It belongs to the global window object, so it would
-        always be defined in a web browser. JSDOM however, has never provided fetch because <a
-         href="https://github.com/jsdom/jsdom/issues/1724#issuecomment-285971986">there isn't a spec-compliant
-          implementation of the fetch algorithm for it to use in Node.</a>
-      </p>
-      <p>
-        Below are several code snippets showing the test, HTML, and script as they were when I ran into this issue.
-      </p>
-      <p>
-        Here's my test asserting that rolling dice updates the dice to a new value. Notice that I set up a mock server
-        to return a specific set of dice for a GET call to the dice endpoint. In a multi-player game, the server has to
-        decide the results of the dice roll so the player can't cheat.
-      </p>
+          <h2>What's the problem?</h2>
+          <p>JSDOM doesn't fully emulate a browser, and I recently ran into a sticky problem. When my HTML document
+            under test loaded a script that tried to use the fetch function, it would crash saying fetch wasn't defined.
+            Fetch is a function you can use to make requests to another server. It belongs to the global window object,
+            so it would always be defined in a web browser. JSDOM however, has never provided fetch because
+            <a
+             href="https://github.com/jsdom/jsdom/issues/1724#issuecomment-285971986">there isn't a spec-compliant
+              implementation of the fetch algorithm for it to use in Node.
+            </a>
+          </p>
+          <p>
+            Below are several code snippets showing the test, HTML, and script as they were when I ran into this issue.
+          </p>
+          <p>
+            Here's my test asserting that rolling dice updates the dice to a new value. Notice that I set up a mock
+            server to return a specific set of dice for a GET call to the dice endpoint. In a multi-player game, the
+            server has to decide the results of the dice roll so the player can't cheat.
+          </p>
 
-      <div class="code-container">
-        <p class="visually-hidden">the following is a Typescript code sample</p>
-        <div class="code-label" aria-hidden="true">Typescript</div>
+          <div class="code-container">
+            <p class="visually-hidden">the following is a Typescript code sample</p>
+            <div class="code-label" aria-hidden="true">Typescript</div>
 
-        <pre class="code-block">
+            <pre class="code-block">
 <code>it("has a button to roll the dice", async () => {
   const rolledDice = [4, 4, 3, 1, 2];
 
@@ -131,17 +139,17 @@
   expect(dice[3].textContent).toBe(`${rolledDice[3]}`);
   expect(dice[4].textContent).toBe(`${rolledDice[4]}`);
 });</code></pre>
-      </div>
+          </div>
 
-      <p>
-        And here's the HTML with the button and list of dice
-      </p>
+          <p>
+            And here's the HTML with the button and list of dice
+          </p>
 
-      <div class="code-container">
-        <p class="visually-hidden">the following is an HTML code sample</p>
-        <div class="code-label" aria-hidden="true">HTML</div>
+          <div class="code-container">
+            <p class="visually-hidden">the following is an HTML code sample</p>
+            <div class="code-label" aria-hidden="true">HTML</div>
 
-        <pre class="code-block">
+            <pre class="code-block">
 <code>&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -159,17 +167,17 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-      </div>
+          </div>
 
-      <p>
-        Finally, here's the script dice.ts the button uses to make the API call to roll the dice:
-      </p>
+          <p>
+            Finally, here's the script dice.ts the button uses to make the API call to roll the dice:
+          </p>
 
-      <div class="code-container">
-        <p class="visually-hidden">the following is a Typescript code sample</p>
-        <div class="code-label" aria-hidden="true">Typescript</div>
+          <div class="code-container">
+            <p class="visually-hidden">the following is a Typescript code sample</p>
+            <div class="code-label" aria-hidden="true">Typescript</div>
 
-        <pre class="code-block">
+            <pre class="code-block">
 <code>const rollDice = async () => {
   const response = await fetch(`/dice`, { method: "GET" });
   const { dice } = await response.json();
@@ -189,20 +197,20 @@ button?.addEventListener("click", (event) => {
     rollDice();
   }
 });</code></pre>
-      </div>
+          </div>
 
-      <h2>Failed Attempt</h2>
-      <p>
-        I tried creating a custom Vitest environment and injecting Node's fetch into it. My thinking was that Vitest's
-        JSDOM didn't have fetch, so adding Node's fetch to the "global" object of that JSDOM environment would expose it
-        to my script.
-      </p>
+          <h2>Failed Attempt</h2>
+          <p>
+            I tried creating a custom Vitest environment and injecting Node's fetch into it. My thinking was that
+            Vitest's JSDOM didn't have fetch, so adding Node's fetch to the "global" object of that JSDOM environment
+            would expose it to my script.
+          </p>
 
-      <div class="code-container">
-        <p class="visually-hidden">the following is a Typescript code sample</p>
-        <div class="code-label" aria-hidden="true">Typescript</div>
+          <div class="code-container">
+            <p class="visually-hidden">the following is a Typescript code sample</p>
+            <div class="code-label" aria-hidden="true">Typescript</div>
 
-        <pre class="code-block">
+            <pre class="code-block">
 <code>import { Environment, builtinEnvironments} from "vitest/environments";
 
 export default &lt;Environment&gt;{
@@ -213,31 +221,35 @@ export default &lt;Environment&gt;{
     return builtinEnvironments.jsdom.setup(global, ...args);
   }
 }</code></pre>
-      </div>
+          </div>
 
-      <p>This didn't work. Maybe I did it wrong, but the documentation is not very clear or well fleshed out. It seems
-        more likely that it just replaced fetch with itself in the NodeJS process that was running the tests, but not
-        whatever process my script was running in. I went around in circles, understanding that I needed to provide
-        fetch to the code running in JSDOM, not the code running in the main Node process, like my tests themselves.
-      </p>
+          <p>This didn't work. Maybe I did it wrong, but the documentation is not very clear or well fleshed out. It
+            seems more likely that it just replaced fetch with itself in the NodeJS process that was running the tests,
+            but not whatever process my script was running in. I went around in circles, understanding that I needed to
+            provide fetch to the code running in JSDOM, not the code running in the main Node process, like my tests
+            themselves.
+          </p>
 
-      <h2>The Solution</h2>
-      <p>
-        Finally, I found a way. Unlike React Testing Library with its render method, <a
-       href="https://testing-library.com/docs/dom-testing-library/example-intro">DOM Testing Library assumes you'll
-        build a DOM yourself in some way</a>. At least some of my tests need to test HTML files, so to "render" a DOM, I
-        need to read those files into an object model. That's where JSDOM is useful. I created my own render method
-        below to read those files into a JSDOM object, then wrap it in a Testing Library container that gives me all the
-        query methods to get elements from that DOM. Note: I omitted the definition of the getCallerFilePath function
-        for space and to avoid confusion. I use it to get the path to the test file that called render, which I'm
-        assuming is the same directory where the HTML file I'm loading is.
-      </p>
+          <h2>The Solution</h2>
+          <p>
+            Finally, I found a way. Unlike React Testing Library with its render method,
+            <a
+             href="https://testing-library.com/docs/dom-testing-library/example-intro">DOM Testing Library assumes
+              you'll build a DOM yourself in some way
+            </a>
+            . At least some of my tests need to test HTML files, so to "render" a DOM, I need to read those files into
+            an object model. That's where JSDOM is useful. I created my own render method below to read those files into
+            a JSDOM object, then wrap it in a Testing Library container that gives me all the query methods to get
+            elements from that DOM. Note: I omitted the definition of the getCallerFilePath function for space and to
+            avoid confusion. I use it to get the path to the test file that called render, which I'm assuming is the
+            same directory where the HTML file I'm loading is.
+          </p>
 
-      <div class="code-container">
-        <p class="visually-hidden">the following is a Typescript code sample</p>
-        <div class="code-label" aria-hidden="true">Typescript</div>
+          <div class="code-container">
+            <p class="visually-hidden">the following is a Typescript code sample</p>
+            <div class="code-label" aria-hidden="true">Typescript</div>
 
-        <pre class="code-block">
+            <pre class="code-block">
 <code>import { JSDOM } from "jsdom";
 import * as fs from "node:fs";
 import { BoundFunctions, queries, within as testingLibraryContainer } from "@testing-library/dom";
@@ -269,22 +281,22 @@ export const render = (filePath: string) => {
     });
   });
 };</code></pre>
-      </div>
+          </div>
 
-      <p>
-        This JSDOM object is the context in which scripts loaded by my HTML will run. dom.window is the global window
-        object those scripts refer to. So if I need those scripts to have access to fetch (which is actually
-        window.fetch), then I just need to pass NodeJS' fetch function to dom.window. Because I'm only doing this for my
-        tests, and I have a mock server intercepting API calls during tests, this is sufficient and safe. In production,
-        the scripts will have access to the real fetch function. Below is a snippet from the above file showing where I
-        added this.
-      </p>
+          <p>
+            This JSDOM object is the context in which scripts loaded by my HTML will run. dom.window is the global
+            window object those scripts refer to. So if I need those scripts to have access to fetch (which is actually
+            window.fetch), then I just need to pass NodeJS' fetch function to dom.window. Because I'm only doing this
+            for my tests, and I have a mock server intercepting API calls during tests, this is sufficient and safe. In
+            production, the scripts will have access to the real fetch function. Below is a snippet from the above file
+            showing where I added this.
+          </p>
 
-      <div class="code-container">
-        <p class="visually-hidden">the following is a Typescript code sample</p>
-        <div class="code-label" aria-hidden="true">Typescript</div>
+          <div class="code-container">
+            <p class="visually-hidden">the following is a Typescript code sample</p>
+            <div class="code-label" aria-hidden="true">Typescript</div>
 
-        <pre class="code-block">
+            <pre class="code-block">
 <code>dom.window.document.addEventListener("DOMContentLoaded", () => {
 
   // this is the important new line
@@ -294,13 +306,16 @@ export const render = (filePath: string) => {
 
   resolve(container);
 });</code></pre>
-      </div>
+          </div>
 
-      <p>
-        After I added this, when the test clicks the button, the API call succeeds and the dice list items get updated
-        correctly!
-      </p>
-      <hr>
+          <p>
+            After I added this, when the test clicks the button, the API call succeeds and the dice list items get
+            updated correctly!
+          </p>
+        </article>
+        <a href="/" class="back-to-homepage-end-link"><span aria-hidden="true">&larr; </span>Back to the home page</a>
+      </main>
+      <hr class="horizontal-rule">
       <footer>
         <h2>Footnotes</h2>
         <ol class="footnote">
@@ -308,11 +323,15 @@ export const render = (filePath: string) => {
             enough that once you have more than 200 tests or so, it takes many minutes to run them all. You would also
             typically use Jasmine with it. Jasmine uses css selectors for grabbing DOM elements, and fires events in a
             way that isn't the same as when a user interects with elements. These make this tests fail when
-            implementation changes but behavior doesn't, and leaves room for bugs. I subscribe to <a
-             href="https://testing-library.com/docs/guiding-principles">Testing Library's Guiding Principles.</a> Its
-            user-based selectors and UX / accessibility focus make the tests you write far more valuable and less
-            brittle. As far as I know, the only way to use Testing Library is with JSDOM or similar in NodeJS. <a
-             href="#footnote-1-ref">Return to paragraph 1</a>
+            implementation changes but behavior doesn't, and leaves room for bugs. I subscribe to
+            <a
+             href="https://testing-library.com/docs/guiding-principles">Testing Library's Guiding Principles.
+            </a>
+            Its user-based selectors and UX / accessibility focus make the tests you write far more valuable and less
+            brittle. As far as I know, the only way to use Testing Library is with JSDOM or similar in NodeJS.
+            <a
+             href="#footnote-1-ref">Return to paragraph 1
+            </a>
           </li>
         </ol>
       </footer>

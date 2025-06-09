@@ -3,10 +3,8 @@
 ## Blog
 
 - [ ] Figure out auto-renewal of certificate
-- [ ] Add link back to the home page from blog pages
+- [X] Add link back to the home page from blog pages
 - [ ] Add skip-nav link
-- [X] Add contact link to main page
-- [X] Add LinkedIn link to main page
 - [ ] Add an RSS feed
 - [ ] Serve blog from Express server, not Parcel static
 
