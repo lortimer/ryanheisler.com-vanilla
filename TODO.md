@@ -27,4 +27,4 @@
 
 ## Google
 
-- [ ] Add noindex for things like the font license files
+- [X] Add noindex for things like the font license files

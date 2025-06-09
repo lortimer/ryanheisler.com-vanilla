@@ -28,8 +28,10 @@
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.12.0",
+    "@parcel/packager-xml": "^2.12.0",
     "@parcel/transformer-jsonld": "^2.12.0",
     "@parcel/transformer-webmanifest": "^2.12.0",
+    "@parcel/transformer-xml": "^2.12.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/user-event": "^14.5.2",
@@ -52,7 +54,8 @@
         "./src/public/index.html",
         "./src/public/heisldice/heisldice.html",
         "./src/public/googlec8167c7efd0aec0a.html",
-        "./src/public/sitemap.xml"
+        "./src/public/sitemap.xml",
+        "./src/public/robots.txt"
       ],
       "distDir": "./dist/public",
       "optimize": false
