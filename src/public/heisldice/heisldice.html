@@ -18,13 +18,22 @@
     <script src="./dice.ts" defer></script>
   </head>
   <body>
-    <ul id="dice-container">
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-    </ul>
-    <button id="dice-roll-button">ROLL DICE</button>
+    <header>
+      <h1>Heisldice!</h1>
+    </header>
+    <main>
+      <ul id="dice-container">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <button id="dice-roll-button">ROLL DICE</button>
+      <div role="status" id="game-log">
+        <h2>Game Log</h2>
+        <div id="log-entries" data-testid="log-entries"></div>
+      </div>
+    </main>
   </body>
 </html>

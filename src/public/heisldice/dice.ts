@@ -1,4 +1,6 @@
-const rollDice = async () => {
+const diceRollButtonId = "dice-roll-button";
+
+const rollDice = async (): Promise<number[]> => {
     const response = await fetch(`/dice`, { method: "GET" });
     const { dice } = await response.json();
 
@@ -7,13 +9,28 @@ const rollDice = async () => {
     diceElements?.forEach((element, index) => {
         element.textContent = `${dice[index]}`;
     });
+
+    return dice;
 };
 
-const button = document.getElementById("dice-roll-button");
+const addLogEntry = (message: string) => {
+    const entries = document.getElementById("log-entries");
 
-button?.addEventListener("click", (event: MouseEvent) => {
+    const newEntry = document.createElement("p");
+
+    entries?.insertBefore(newEntry, entries?.childNodes[0]);
+
+    newEntry.textContent = message;
+};
+
+const button = document.getElementById(diceRollButtonId);
+
+button?.addEventListener("click", async (event: MouseEvent) => {
     const button = event.target as HTMLButtonElement;
-    if (button && button.id === "dice-roll-button") {
-        rollDice();
+    if (button && button.id === diceRollButtonId) {
+        const dice = await rollDice();
+
+        let message = `You rolled ${dice[0]}, ${dice[1]}, ${dice[2]}, ${dice[3]}, ${dice[4]}`;
+        addLogEntry(message);
     }
 });

@@ -1,49 +1,60 @@
-import { describe, expect, it } from "vitest";
-import { render } from "../../../test/render";
+import { beforeEach, describe, expect, it } from "vitest";
+import { Container, render } from "../../../test/render";
 import { within } from "@testing-library/dom";
 import { heisldiceRoutes } from "../../heisldice/heisldice-router";
 import { http, HttpResponse } from "msw";
 import { mockServer } from "../../../test/mock-server/mock-server";
+import { getGeneratorFromArray } from "../../../test/generator";
 
 describe("dice", () => {
-    it("shows a list of dice", async () => {
-        const { getByRole } = await render("heisldice.html");
+    describe("when the dice are rolled", () => {
+        let diceRolls: number[][];
+        let screen: Container;
+        let rollButton: HTMLButtonElement;
+        beforeEach(async () => {
+            diceRolls = [
+                [4, 4, 3, 1, 2],
+                [6, 1, 6, 2, 5]
+            ];
 
-        const list = getByRole("list");
-        expect(list).toBeVisible();
+            const responses = getGeneratorFromArray(diceRolls);
 
-        const dice = within(list).getAllByRole("listitem");
-        expect(dice.length).toBe(5);
+            mockServer.use(http.get(`*${heisldiceRoutes.dice}`, () => {
+                return HttpResponse.json({ dice: responses.next().value });
+            }));
 
-        expect(dice[0].textContent).toBe("1");
-        expect(dice[1].textContent).toBe("2");
-        expect(dice[2].textContent).toBe("3");
-        expect(dice[3].textContent).toBe("4");
-        expect(dice[4].textContent).toBe("5");
-    });
+            screen = await render("heisldice.html");
 
-    it("has a button to roll the dice", async () => {
-        const rolledDice = [4, 4, 3, 1, 2];
+            rollButton = screen.getByRole("button", { name: /roll dice/i });
+        });
+        it("updates the list of dice", async () => {
+            await screen.user.click(rollButton);
+            const dice = within(screen.getByRole("list")).getAllByRole("listitem");
+            const firstRoll = diceRolls[0];
 
-        mockServer.use(http.get(`*${heisldiceRoutes.dice}`, () => {
-            return HttpResponse.json({ dice: rolledDice });
-        }));
+            expect(dice[0].textContent).toBe(`${firstRoll[0]}`);
+            expect(dice[1].textContent).toBe(`${firstRoll[1]}`);
+            expect(dice[2].textContent).toBe(`${firstRoll[2]}`);
+            expect(dice[3].textContent).toBe(`${firstRoll[3]}`);
+            expect(dice[4].textContent).toBe(`${firstRoll[4]}`);
+        });
+        it("adds rolled dice to the game log IN REVERSE ORDER", async () => {
+            const gameLog = screen.getByRole("status");
+            const logSection = within(gameLog).getByTestId("log-entries");
 
-        const { getByRole, user } = await render("heisldice.html");
+            await screen.user.click(rollButton);
+            let entries = within(logSection).queryAllByText(/.+/);
+            expect(entries.length).toEqual(1);
 
-        const button = getByRole("button", { name: /roll dice/i });
+            await screen.user.click(rollButton);
+            entries = within(logSection).queryAllByText(/.+/);
+            expect(entries.length).toEqual(2);
 
-        await user.click(button);
+            const firstRoll = diceRolls[0];
+            const secondRoll = diceRolls[1];
 
-        // check loading status
-        // resolve promise from MSW
-
-        const dice = within(getByRole("list")).getAllByRole("listitem");
-
-        expect(dice[0].textContent).toBe(`${rolledDice[0]}`);
-        expect(dice[1].textContent).toBe(`${rolledDice[1]}`);
-        expect(dice[2].textContent).toBe(`${rolledDice[2]}`);
-        expect(dice[3].textContent).toBe(`${rolledDice[3]}`);
-        expect(dice[4].textContent).toBe(`${rolledDice[4]}`);
+            expect(entries[0].textContent).toEqual(`You rolled ${secondRoll[0]}, ${secondRoll[1]}, ${secondRoll[2]}, ${secondRoll[3]}, ${secondRoll[4]}`);
+            expect(entries[1].textContent).toEqual(`You rolled ${firstRoll[0]}, ${firstRoll[1]}, ${firstRoll[2]}, ${firstRoll[3]}, ${firstRoll[4]}`);
+        });
     });
 });

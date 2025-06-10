@@ -3,10 +3,9 @@
 ## Blog
 
 - [ ] Figure out auto-renewal of certificate
-- [X] Add link back to the home page from blog pages
+- [ ] Serve blog from Express server, not Parcel static
 - [ ] Add skip-nav link
 - [ ] Add an RSS feed
-- [ ] Serve blog from Express server, not Parcel static
 
 ## Server
 
