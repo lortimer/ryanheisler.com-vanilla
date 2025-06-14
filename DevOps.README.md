@@ -18,26 +18,10 @@ The AWS Cloudfront Distribution ID is E35KDQMT1OOMLL and its root URL is https:/
        later.
 2. In Porkbun (DNS Host), add a CNAME record to the DNS from blog.ryanheisler.com to the cloudfront URL
    dmqf4ocirlt5h.cloudfront.net
-3. To avoid moving DNS hosting to AWS, add an alternate domain and certificate to AWS Cloudfront proving I own
-   blog.ryanheisler.com
-    1. In Porkbun, go to the details of the domain and download the SSL bundle for the domain
-    2. Go to AWS Certificate Manager (ACM)
-    3. Make sure you're in US-east 1, Cloudfront can only use certificates in that
-       region.
-    4. Click "import a cetificate"
-    5. On the following screen:
-        1. paste the FIRST CERTIFICATE BLOCK from the `domain.cert.pem` file into "Certificate body", including
-           -----BEGIN/END-----
-        2. paste the full contents of `private.key.pem` into "Certificate private key"
-        3. [Taken from Stackoverflow](https://stackoverflow.com/a/72553797)
-        4. Finally, paste the FULL CONTENTS of `domain.cert.pem` into "Certificate chain". If you don't it will think
-           the certificate was not issued by a trusted issuer, even though the ISRG/Let's Encrypt is trusted
-    6. In AWS Cloudfront:
-        1. Open the distribution
-        2. Click "Edit"
-        3. Under "Alternate domain name (CNAME)", click "Add item"
-            1. type "blog.ryanheisler.com"
-        4. Under "Custom SSL certificate", open the dropdown and select the certificate from the list
+3. I originally got a TLS certificate from Porkbun, but that meant I had to manually update it every 90 days or so. I
+   switched to getting a certificate from AWS directly, which required adding a CNAME record to my domain in Porkbun.
+   Now it auto-renews. Instructions for uploading a certificate to Amazon are in the git history of this document.
+    1. MAKE SURE ANY CERTIFICATE ISSUED IS IN THE US-EAST-1 REGION, Cloudfront can only use certificates there.
 
 At this point, the redirect from Porkbun to the distribution worked, but TLS was not forced.
 
