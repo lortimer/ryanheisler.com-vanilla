@@ -12,11 +12,20 @@ app.get("/", (_: Request, response: Response) => {
 });
 
 heisldiceRouter.get(heisldiceRoutes.index, (_: Request, response: Response) => {
-    console.log(`${path.join(__dirname, "public", "heisldice", "heisldice.html")}`);
     response.sendFile(`${path.join(__dirname, "public", "heisldice", "heisldice.html")}`);
 });
 
 app.use(heisldiceRouter);
+
+// TODO only register this in non-prod environments
+app.get("/playwright", (_: Request, response: Response) => {
+    /**
+     * Playwright was running some tests before the server was ready, so this
+     * setTimeout is a hack to get it to wait until the server is fully ready
+     * before running any tests
+     */
+    setTimeout(() => response.status(200).end(), 2000);
+});
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

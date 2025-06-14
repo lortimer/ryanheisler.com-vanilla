@@ -3,7 +3,8 @@
   "exclude": [
     "./vitest-setup.ts",
     "**/*test*",
-    "src/public"
+    "src/public",
+    "**/*playwright*"
   ],
   "compilerOptions": {
     "target": "es2016",

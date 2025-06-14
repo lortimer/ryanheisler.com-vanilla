@@ -1,17 +1,15 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { Container, render } from "../../../test/render";
-import { within } from "@testing-library/dom";
-import { heisldiceRoutes } from "../../heisldice/heisldice-router";
-import { http, HttpResponse } from "msw";
-import { mockServer } from "../../../test/mock-server/mock-server";
+import test, { expect, Locator } from "@playwright/test";
 import { getGeneratorFromArray } from "../../../test/generator";
+import { heisldiceRoutes } from "../../heisldice/heisldice-router";
 
-describe("dice", () => {
-    let screen: Container;
-    let rollButton: HTMLButtonElement;
-    describe("when the dice are rolled", () => {
+test.describe("dice", () => {
+    let rollButton: Locator;
+    test.beforeEach(async ({ page }) => {
+        await page.goto("heisldice");
+    });
+    test.describe("when the dice are rolled", () => {
         let diceRolls: number[][];
-        beforeEach(async () => {
+        test.beforeEach(async ({ page }) => {
             diceRolls = [
                 [4, 4, 3, 1, 2],
                 [6, 1, 6, 2, 5]
@@ -19,66 +17,74 @@ describe("dice", () => {
 
             const responses = getGeneratorFromArray(diceRolls);
 
-            mockServer.use(http.get(`*${heisldiceRoutes.dice}`, () => {
-                return HttpResponse.json({ dice: responses.next().value });
-            }));
+            await page.route(`*/**${heisldiceRoutes.dice}`, async route => {
+                const json = { dice: responses.next().value };
+                await route.fulfill({ json });
+            });
 
-            screen = await render("heisldice.html");
-
-            rollButton = screen.getByRole("button", { name: /roll dice/i });
+            rollButton = page.getByRole("button", { name: /roll dice/i });
         });
-        it("updates the list of dice", async () => {
-            await screen.user.click(rollButton);
-            const dice = within(await screen.findByRole("list")).getAllByRole("listitem");
-            const firstRoll = diceRolls[0];
+        test("updates the list of dice", async ({ page }) => {
+            await rollButton.click();
+            const dice = page.getByRole("list").getByRole("listitem");
 
-            expect(dice[0].textContent).toBe(`${firstRoll[0]}`);
-            expect(dice[1].textContent).toBe(`${firstRoll[1]}`);
-            expect(dice[2].textContent).toBe(`${firstRoll[2]}`);
-            expect(dice[3].textContent).toBe(`${firstRoll[3]}`);
-            expect(dice[4].textContent).toBe(`${firstRoll[4]}`);
+            await expect(dice).toHaveText(diceRolls[0].map(x => `${x}`));
         });
-        it("adds rolled dice to the game log IN REVERSE ORDER", async () => {
-            const gameLog = screen.getByRole("status");
-            const logSection = within(gameLog).getByTestId("log-entries");
+        test("adds rolled dice to the game log IN REVERSE ORDER", async ({ page }) => {
+            const gameLog = page.getByRole("status");
+            const logSection = gameLog.getByTestId("log-entries");
 
-            await screen.user.click(rollButton);
-            let entries = within(logSection).queryAllByText(/.+/);
-            expect(entries.length).toEqual(1);
+            await rollButton.click();
+            let entries = logSection.getByText(/.+/);
+            await expect(entries).toHaveCount(1);
 
-            await screen.user.click(rollButton);
-            entries = within(logSection).queryAllByText(/.+/);
-            expect(entries.length).toEqual(2);
+            await rollButton.click();
+            entries = logSection.getByText(/.+/);
+            await expect(entries).toHaveCount(2);
+
+            const logs = await entries.all();
 
             const firstRoll = diceRolls[0];
             const secondRoll = diceRolls[1];
 
-            expect(entries[0].textContent).toEqual(`You rolled ${secondRoll[0]}, ${secondRoll[1]}, ${secondRoll[2]}, ${secondRoll[3]}, ${secondRoll[4]}`);
-            expect(entries[1].textContent).toEqual(`You rolled ${firstRoll[0]}, ${firstRoll[1]}, ${firstRoll[2]}, ${firstRoll[3]}, ${firstRoll[4]}`);
+            await expect(logs[0]).toHaveText(`You rolled ${secondRoll[0]}, ${secondRoll[1]}, ${secondRoll[2]}, ${secondRoll[3]}, ${secondRoll[4]}`);
+            await expect(logs[1]).toHaveText(`You rolled ${firstRoll[0]}, ${firstRoll[1]}, ${firstRoll[2]}, ${firstRoll[3]}, ${firstRoll[4]}`);
         });
     });
 
-    describe("while the dice are rolling", () => {
+    test.describe("while the dice are rolling", () => {
         let resolve: () => void;
-        beforeEach(async () => {
-            mockServer.use(http.get(`*${heisldiceRoutes.dice}`, async () => {
+        test.beforeEach(async ({ page }) => {
+            await page.route(`*/**${heisldiceRoutes.dice}`, async route => {
                 await new Promise<void>(resolve_ => {resolve = resolve_;});
-                return HttpResponse.json({ dice: [1, 2, 3, 4, 5] });
-            }));
+                const response = await route.fetch();
+                const json = await response.json();
+                await route.fulfill({ response, json });
+            });
 
-            screen = await render("heisldice.html");
-
-            rollButton = screen.getByRole("button", { name: /roll dice/i });
-            await screen.user.click(rollButton);
+            rollButton = page.getByRole("button", { name: /roll dice/i });
+            await rollButton.click();
         });
-        it("dice elements are inaccessible to assistive technology", async () => {
-            let dice = screen.queryByRole("list");
-            expect(dice).not.toBeInTheDocument();
+        test("dice elements are inaccessible to assistive technology", async ({ page }) => {
+            let dice = page.getByRole("list");
+            await expect(dice).not.toBeVisible();
 
             resolve();
 
-            dice = await screen.findByRole("list");
-            expect(dice).toBeInTheDocument();
+            dice = page.getByRole("list");
+            await expect(dice).toBeVisible();
+        });
+        test("dice elements change value rapidly", () => {
+            // test that dice values get set to the output of a random number generator
+            /**
+             * I want to move the randomInteger function into a utility, import it in dice.ts, and then mock it from
+             * this test, but I have to look into how to import something into a script loaded by a script tag. I think
+             * there's an attribute of a script tag you can set to make this possible.
+             *
+             * I could also load the random script with a script tag and declare the function with var, and then assume
+             * it exists in this file, but I also don't know how well that will work.
+             */
+
         });
     });
 });

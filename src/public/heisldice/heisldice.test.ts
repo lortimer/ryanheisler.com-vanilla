@@ -1,39 +1,32 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { Container, render } from "../../../test/render";
-import { within } from "@testing-library/dom";
+import { expect, test } from "@playwright/test";
 
-describe("heisldice page", () => {
-    let screen: Container;
-    beforeEach(async () => {
-        screen = await render("heisldice.html");
+test.describe("heisldice page", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto("heisldice");
     });
-    it("has a main heading", async () => {
-        const banner = screen.getByRole("banner");
-        const heading = within(banner).getByRole("heading", { level: 1, name: "Heisldice!" });
+    test("has a main heading", async ({ page }) => {
+        const banner = page.getByRole("banner");
+        const heading = banner.getByRole("heading", { level: 1, name: "Heisldice!" });
 
-        expect(heading).toBeVisible();
+        await expect(heading).toBeVisible();
     });
-    it("shows a list of default dice", async () => {
-        const list = screen.getByRole("list");
-        expect(list).toBeVisible();
+    test("shows a list of default dice", async ({ page }) => {
+        const list = page.getByRole("list");
+        await expect(list).toBeVisible();
 
-        const dice = within(list).getAllByRole("listitem");
-        expect(dice.length).toBe(5);
+        const dice = list.getByRole("listitem");
+        await expect(dice).toHaveCount(5);
 
-        expect(dice[0].textContent).toBe("1");
-        expect(dice[1].textContent).toBe("2");
-        expect(dice[2].textContent).toBe("3");
-        expect(dice[3].textContent).toBe("4");
-        expect(dice[4].textContent).toBe("5");
+        await expect(dice).toHaveText(["1", "2", "3", "4", "5"]);
     });
-    it("shows an empty game log", async () => {
-        const gameLog = screen.getByRole("status");
-        const heading = within(gameLog).getByRole("heading", { level: 2, name: "Game Log" });
-        expect(heading).toBeVisible();
+    test("shows an empty game log", async ({ page }) => {
+        const gameLog = page.getByRole("status");
+        const heading = gameLog.getByRole("heading", { level: 2, name: "Game Log" });
+        await expect(heading).toBeVisible();
 
-        const logSection = within(gameLog).getByTestId("log-entries");
+        const logSection = gameLog.getByTestId("log-entries");
 
-        let entries = within(logSection).queryAllByText(/.+/);
-        expect(entries.length).toBe(0);
+        let entries = logSection.getByText(/.+/);
+        await expect(entries).toHaveCount(0);
     });
 });

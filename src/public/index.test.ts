@@ -1,30 +1,27 @@
-import { describe, expect, it } from "vitest";
-import { render } from "../../test/render";
+import test, { expect } from "@playwright/test";
 
-describe("index", () => {
-    it("renders a heading", async () => {
-        const { getByRole } = await render("index.html");
-        const heading = getByRole("heading", { level: 1, name: "Ryan Heisler's Blog" });
-        expect(heading).toBeVisible();
+test.describe("index", () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto("/");
+    });
+    test("renders a heading", async ({ page }) => {
+        const heading = page.getByRole("heading", { level: 1, name: "Ryan Heisler's Blog" });
+        await expect(heading).toBeVisible();
     });
 
-    it("has a link to the blog post", async () => {
+    test("has a link to the blog post", async ({ page }) => {
         const name = "Accessibility Testing is Essential for Creating a Good User Experience";
 
-        const { getByRole } = await render("index.html");
-
-        const link: HTMLLinkElement = getByRole("link", { name });
-        expect(link).toBeVisible();
-        expect(link.href).toContain("blog/accessibility/accessibility-testing-essential.html");
+        const link = page.getByRole("link", { name });
+        await expect(link).toBeVisible();
+        await expect(link.first()).toHaveAttribute("href", "/blog/accessibility/accessibility-testing-essential.html");
     });
 
-    it("has a link to a credits and license page", async () => {
+    test("has a link to a credits and license page", async ({ page }) => {
         const name = "technologies and assets made by other people";
 
-        const { getByRole } = await render("index.html");
-
-        const link: HTMLLinkElement = getByRole("link", { name });
-        expect(link).toBeVisible();
-        expect(link.href).toContain("credits-and-licenses.html");
+        const link = page.getByRole("link", { name });
+        await expect(link).toBeVisible();
+        await expect(link.first()).toHaveAttribute("href", "/credits-and-licenses.html");
     });
 });
