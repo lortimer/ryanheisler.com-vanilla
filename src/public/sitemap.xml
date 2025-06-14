@@ -17,25 +17,6 @@
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>https://blog.ryanheisler.com/licenses/inter-license.txt</loc>
-        <lastmod>2025-02-14</lastmod>
-        <changefreq>never</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://blog.ryanheisler.com/licenses/jetbrains-mono-license.txt</loc>
-        <lastmod>2025-02-14</lastmod>
-        <changefreq>never</changefreq>
-        <priority>0.64</priority>
-    </url>
-    <url>
-        <loc>https://blog.ryanheisler.com/licenses/selenized-license.txt</loc>
-        <lastmod>2025-02-14</lastmod>
-        <changefreq>never</changefreq>
-        <priority>0.64</priority>
-    </url>
-
-    <url>
         <loc>https://blog.ryanheisler.com/blog/accessibility/accessibility-testing-essential.html</loc>
         <lastmod>2025-01-12</lastmod>
         <changefreq>never</changefreq>
