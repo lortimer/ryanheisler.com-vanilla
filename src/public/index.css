@@ -21,6 +21,10 @@ main {
     flex-grow: 1;
 }
 
+li {
+    margin-bottom: 0.75rem;
+}
+
 .horizontal-rule {
     margin: 0;
 }

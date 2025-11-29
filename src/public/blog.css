@@ -1,5 +1,13 @@
-h1, h2 {
+h1, h2, h3, h4, h5, h6 {
     font-family: JetbrainsMono, serif;
+}
+
+h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+}
+
+p {
+    margin: 0 0 1rem 0;
 }
 
 .byline {
@@ -7,7 +15,6 @@ h1, h2 {
 }
 
 pre {
-    white-space: pre-wrap;
     overflow: scroll;
 }
 
@@ -20,8 +27,8 @@ code {
     background-color: #323232;
     border-radius: 1rem;
     color: #C1C1BD;
-    overflow: hidden;
     box-shadow: 0 0 2rem -1rem #71255D;
+    margin: 1.5rem 0;
 }
 
 .code-label {
@@ -87,10 +94,6 @@ footer {
 }
 
 @media (min-aspect-ratio: 1/1.2) {
-    :root {
-        font-size: 1.25rem;
-    }
-
     body {
         display: flex;
         flex-flow: column;
@@ -103,6 +106,10 @@ footer {
 
     .code-container {
         margin: 2rem 0;
+    }
+
+    .code-block {
+        font-size: 1rem;
     }
 }
 

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>JAWS Converts Keyboard Events into Mouse Events - Ryan Heisler's Blog</title>
+    <meta name="author" content="Ryan Heisler">
+    <meta name="description"
+          content="The JAWS screen reader converts keyboard events like pressing the Enter key into mouse events like left-click in its default mode when the user is exploring a web page.">
+    <!--TODO update dates-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Accessibility Testing is Essential",
+        "image": [
+          "images/rep-1x1.jpg",
+          "images/rep-4x3.jpg",
+          "images/rep-16x9.jpg"
+        ],
+        "datePublished": "2025-11-30T20:50:00+00:00",
+        "dateModified": "2025-11-30T20:50:00+00:00",
+        "author": [
+          {
+            "@type": "Person",
+            "name": "Ryan Heisler",
+            "url": "https://ryanheisler.com"
+          }
+        ]
+      }
+    </script>
+
+    <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png"
+          sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="../../favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Ryan Heisler" />
+    <link rel="manifest" href="../../manifest.webmanifest">
+    <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FDFAF1" media="(prefers-color-scheme: light)">
+
+    <link rel="stylesheet" href="../../common.css">
+    <link rel="stylesheet" href="../../blog.css">
+    <link rel="stylesheet" href="../../fonts/inter.css">
+    <link rel="stylesheet" href="../../fonts/jetbrains-mono.css">
+  </head>
+  <body>
+    <div class="content-container">
+      <main>
+        <article>
+          <h1>JAWS Converts Keyboard Events into Mouse Events</h1>
+          <p class="byline">
+            By Ryan Heisler, published
+            <!--TODO update dates-->
+            <time datetime="2025-01-12">January 12, 2025</time>
+          </p>
+          <div class="image-container">
+            <img srcset="images/banner-640.jpg 640w,
+                         images/banner-768.jpg 768w,
+                         images/banner-1024.jpg 1024w,
+                         images/banner-1200.jpg 1200w,
+                         images/banner-1440.jpg 1440w,
+                         images/banner-1600.jpg 1600w,
+                         images/banner-1920.jpg 1920w,
+                         images/banner-2560.jpg 2560w,
+                         images/banner-4080.jpg 4080w,"
+                 sizes="95vw"
+                 src="images/banner-640.jpg"
+                 alt="A person in the distance walks across the coast of Maine, USA. The shore is covered in sharp rocks and boulders, seaweed, and further away, pine and other trees">
+          </div>
+          <p>I discovered a behavior that struck me as odd when testing a website for accessibility recently. A menu
+            with links inside was completely inaccessible when I tried to open it using the JAWS screen reader and my
+            keyboard. When I dug deeper, I found it made a common design pattern completely and mysteriously
+            inaccessible for someone using JAWS. Just testing the functionality of the site with my keyboard did not
+            catch the bug! It has to do specifically with how JAWS works with the keyboard.
+          </p>
+
+          <h2>The Behavior</h2>
+          <p>Imagine you're building a personal website. At the top of every page you want a navigation bar with links
+            to all the main pages. Some of the links fit into a group, so you create a
+            <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">disclosure component</a>
+            to hold those links. Basically, it's a menu of links that opens when you interact with a button in the nav
+            bar.
+          </p>
+          <p>You want it to have cool, unique functionality, so you make the disclosure open when the mouse hovers over
+            it and close when the mouse moves away. All elements must be operable by the mouse and the keyboard, so you
+            also make it open and close when the user focuses it and presses the Enter key.</p>
+          <p>Here's the HTML of just the disclosure:</p>
+
+          <div class="code-container">
+            <p class="visually-hidden">the following is an HTML code sample</p>
+            <div class="code-label" aria-hidden="true">HTML</div>
+
+            <pre class="code-block">
+<code>&lt;div id=&quot;show-hide-container&quot;&gt;
+  &lt;button id=&quot;show-hide&quot; aria-controls=&quot;disclosure&quot; aria-expanded=&quot;false&quot;&gt;
+    Documentation
+  &lt;/button&gt;
+  &lt;div id=&quot;disclosure&quot; hidden=&quot;true&quot;&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;...&quot;&gt;My Documentation&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;...&quot;&gt;Mozilla Web Docs&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;...&quot;&gt;Example Website&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+          </div>
+
+          <p>And Here's the Javascript that controls it. Notice which event handlers it's using - "mouseenter",
+            "mouseleave", "keydown", and "focusout":</p>
+
+          <div class="code-container">
+            <p class="visually-hidden">the following is a JavaScript code sample</p>
+            <div class="code-label" aria-hidden="true">JavaScript</div>
+
+            <pre class="code-block">
+<code>let disclosureIsShown = false;
+const disclosureContainer = document.getElementById("show-hide-container");
+const button = document.getElementById("show-hide");
+const disclosure = document.getElementById("disclosure");
+
+const showDisclosure = () => {
+  disclosure.removeAttribute("hidden");
+  button.setAttribute("aria-expanded", "true");
+  disclosureIsShown = true;
+};
+
+const hideDisclosure = () => {
+  disclosure.setAttribute("hidden", "true");
+  button.setAttribute("aria-expanded", "false");
+  disclosureIsShown = false;
+};
+
+disclosureContainer.addEventListener("mouseenter", () => {
+  showDisclosure();
+});
+
+disclosureContainer.addEventListener("mouseleave", () => {
+  hideDisclosure();
+});
+
+disclosureContainer.addEventListener("focusout", (event) => {
+  if (!disclosureContainer.contains(event.relatedTarget)) {
+    hideDisclosure();
+  }
+});
+
+button.addEventListener("keydown", (event) => {
+  if (event.key === 'Enter' || event.keyCode === 13) {
+    if (disclosureIsShown) {
+      hideDisclosure();
+    } else {
+      showDisclosure();
+    }
+  }
+});
+</code></pre>
+          </div>
+
+          <p>You test it out with the mouse and the keyboard, and both work, so you move on. Unfortunately, JAWS users
+            can't access it despite your best efforts!
+          </p>
+          <p>When they focus the disclosure button JAWS announces it like every other button, but when they press the
+            enter key nothing happens. The disclosure doesn't open and JAWS doesn't say anything at all. From their
+            perspective, they don't know whether anything happened because nothing was announced. They don't know
+            whether the entire page changed or nothing changed. They also don't know what was supposed to happen.
+          </p>
+          <p>At best, they might guess that this button should have opened a menu of links, but they'll have to
+            carefully examine the rest of the page to figure it out. At worst, they know they're missing something but
+            they don't know what, and they decide not to use your site. Either way, you have given them no way to access
+            a significant portion of your site's content.
+          </p>
+
+          <h2>The Explanation</h2>
+          <p>The problem is that JAWS converts some keyboard events, like pressing the enter key, into mouse-click
+            events! When a JAWS user focuses the button with the tab key and then presses enter, the enter keypress is
+            converted into a mouse click event. If your button doesn't have an event handler for click events, nothing
+            happens.
+          </p>
+          <p>If you're trying to practice good accessibility, it's reasonable to assume that making a control operable
+            by at least one mouse event and one keyboard event is enough. It's also reasonable to assume that only mice
+            fire mouse events and only keyboards fire keyboard events. Neither of these assumptions are true.
+          </p>
+
+          <h3>Device-dependent events</h3>
+          <p>Some events are "device dependent." I'm having a hard time finding a technical definition for this, but it
+            basically means these events are typically fired only by a specific type of device. A keyboard-dependent
+            event will usually only be fired by a keyboard. There are exceptions, of course. Some devices emulate
+            keyboards, and it's possible to use macros to convert something like a mouse event into a keyboard event.
+          </p>
+          <p>
+            <a href="https://accessibility.asu.edu/articles/javascript">Arizona State University provides a table of
+              event handlers broken down by device dependency.
+            </a>
+            According to that page, "onmouseover", "onmouseout", and "onhover" depend on a mouse, while "onkeyup" and
+            "onkeydown" depend on a keyboard.
+          </p>
+
+          <h3>Device-independent events</h3>
+          <p>Other events are "device-independent," which means we should expect them to be fired by a keyboard, a
+            mouse, a touch screen, or assistive technologies. According to the Arizona State University page linked
+            above, the following events are device independent:
+          </p>
+          <ul>
+            <li>onclick</li>
+            <li>onfocus</li>
+            <li>onblur</li>
+            <li>onchange</li>
+            <li>onselect</li>
+          </ul>
+          <p>Notice that "onclick" is not mouse-dependent despite its name. It's fired by the left mouse button, Enter
+            key, Spacebar, and tapping on a touch screen. It's also fired by assistive technologies, like when JAWS
+            converts an Enter keypress into a click event.
+            <a href="https://www.tpgi.com/event-handling-in-jaws-and-nvda/#the-curious-case-of-buttons">According to
+              this article from TGPI, this is the default behavior of the JAWS virtual cursor.
+            </a>
+          </p>
+          <p>By default, when using a web browers, JAWS is using its Virtual Cursor, which is "a kind of pointer input."
+            The virtual cursor acts like a pointing device allowing the user to explore a web page using their keyboard.
+            It interprets the enter key as the user's intention to activate an interactive element, so it simulates the
+            events that would happen if you clicked on that element with a true pointing device.
+          </p>
+
+          <h2>The Lessons</h2>
+          <p>First, we should all take this as a lesson that we shouldn't assume anything about the devices our users
+            are using. Many devices and software emulate events fired by other devices.
+          </p>
+          <p>Second, even if we don't make any assumptions,
+            <a href="https://blog.ryanheisler.com/blog/accessibility/accessibility-testing-essential.html"> we have to
+              test our own web interfaces with a wide variety of assistive technologies.
+            </a>
+            I wouldn't have caught this issue if I wasn't using JAWS specifically. Those of us who don't regularly
+            depend on assistive technologies need to have users of those technologies test our apps. Someone who relies
+            on a specific technology will have much better and deeper insights into it than someone who doesn't.
+          </p>
+          <p>Finally,
+            <a href="https://webaim.org/techniques/javascript/eventhandlers#deviceindependent">Web Accessibility In Mind
+              (WebAIM) recommends using device-independent event handlers
+            </a>
+            to avoid exactly the problem I found with JAWS converting keyboard events into mouse events. If you're going
+            to use device-dependent event handlers, they say "Multiple device dependent event handlers can be used
+            together to allow mouse, touch, and keyboard activation of JavaScript, but this requires testing across
+            different browsers and assistive technologies to ensure that accessibility is not limited in any way."
+          </p>
+
+          <h2>Example with Full Code</h2>
+          <p>Below is code for a minimal example that demonstrates the bug discussed in this article. If you copy it
+            into an HTML file and open it in your browser, you'll be able to open the disclosure with the keyboard
+            unless you have JAWS turned on with the default settings.
+          </p>
+
+          <div class="code-container">
+            <p class="visually-hidden">the following is a JavaScript code sample</p>
+            <div class="code-label" aria-hidden="true">JavaScript</div>
+
+            <pre class="code-block">
+<code>&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;title&gt;Disclosure Test&lt;/title&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header&gt;
+  &lt;nav&gt;
+    &lt;ul style=&quot;display: flex; column-gap: 2rem; list-style-type: none&quot;&gt;
+      &lt;li&gt;&lt;a href=&quot;/&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;
+        &lt;div id=&quot;show-hide-container&quot; style=&quot;border: 1px solid black; display: inline-block&quot;&gt;
+          &lt;button id=&quot;show-hide&quot; aria-controls=&quot;disclosure&quot; aria-expanded=&quot;false&quot;&gt;Documentation&lt;/button&gt;
+          &lt;div id=&quot;disclosure&quot; hidden=&quot;true&quot; style=&quot;width: 200px; padding: 1rem; align-items: center&quot;&gt;
+            &lt;ul&gt;
+              &lt;li&gt;&lt;a href=&quot;/docs&quot;&gt;My Documentation&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org/en-US/&quot;&gt;Mozilla Web Docs&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;https://example.com&quot;&gt;Example Website&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+
+
+&lt;script defer&gt;
+  let disclosureIsShown = false;
+  const disclosureContainer = document.getElementById("show-hide-container");
+  const button = document.getElementById("show-hide");
+  const disclosure = document.getElementById("disclosure");
+
+
+  const showDisclosure = () => {
+      disclosure.removeAttribute("hidden");
+      button.setAttribute("aria-expanded", "true");
+      disclosureIsShown = true;
+  };
+
+
+  const hideDisclosure = () => {
+      disclosure.setAttribute("hidden", "true");
+      button.setAttribute("aria-expanded", "false");
+      disclosureIsShown = false;
+  };
+
+
+  disclosureContainer.addEventListener("mouseenter", () => {
+      showDisclosure();
+  });
+
+
+  disclosureContainer.addEventListener("mouseleave", () => {
+      hideDisclosure();
+  });
+
+
+  disclosureContainer.addEventListener("focusout", (event) => {
+      if (!disclosureContainer.contains(event.relatedTarget)) {
+          hideDisclosure();
+      }
+  });
+
+
+  button.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.keyCode === 13) {
+          if (disclosureIsShown) {
+              hideDisclosure();
+          } else {
+              showDisclosure();
+          }
+      }
+  });
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+          </div>
+
+        </article>
+      </main>
+    </div>
+  </body>
+</html>

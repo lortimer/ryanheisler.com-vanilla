@@ -2,9 +2,16 @@
 
 ## Blog
 
+- [ ] Add new posts
+    - JAWS + click events
+    - JSDOM --> Playwright
+    - Ergo Ploopy
+- [ ] Add page for each "tag" (accessibility, vanilla project, etc.)
+    - [ ] Add links somewhere on main page
+- [ ] Add skip-nav link
+- [ ] Make posts on main page show up as image cards
 - [ ] Figure out auto-renewal of certificate
 - [ ] Serve blog from Express server, not Parcel static
-- [ ] Add skip-nav link
 - [ ] Add an RSS feed
 
 ## Server
