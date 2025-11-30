@@ -53,8 +53,9 @@ code {
     color: var(--fg-light);
 
     line-height: 2rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.15rem 0.33rem;
     border-radius: 8px;
+    overflow-wrap: break-word;
 }
 
 .image-container {
