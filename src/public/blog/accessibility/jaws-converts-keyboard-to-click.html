@@ -79,10 +79,9 @@
 
           <h2>The Behavior</h2>
           <p>Imagine you're building a personal website. At the top of every page you want a navigation bar with links
-            to all the main pages. Some of the links fit into a group, so you create a
-            <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">disclosure component</a>
-            to hold those links. Basically, it's a menu of links that opens when you interact with a button in the nav
-            bar.
+            to all the main pages. Some of the links fit into a group, so you create a <a
+             href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">disclosure component</a> to hold those links.
+            Basically, it's a menu of links that opens when you interact with a button in the nav bar.
           </p>
           <p>You want it to have cool, unique functionality, so you make the disclosure open when the mouse hovers over
             it and close when the mouse moves away. All elements must be operable by the mouse and the keyboard, so you
@@ -192,10 +191,8 @@ button.addEventListener("keydown", (event) => {
           </p>
           <p>
             <a href="https://accessibility.asu.edu/articles/javascript">Arizona State University provides a table of
-              event handlers broken down by device dependency.
-            </a>
-            According to that page, "onmouseover", "onmouseout", and "onhover" depend on a mouse, while "onkeyup" and
-            "onkeydown" depend on a keyboard.
+              event handlers broken down by device dependency. </a> According to that page, "onmouseover", "onmouseout",
+            and "onhover" depend on a mouse, while "onkeyup" and "onkeydown" depend on a keyboard.
           </p>
 
           <h3>Device-independent events</h3>
@@ -212,10 +209,9 @@ button.addEventListener("keydown", (event) => {
           </ul>
           <p>Notice that "onclick" is not mouse-dependent despite its name. It's fired by the left mouse button, Enter
             key, Spacebar, and tapping on a touch screen. It's also fired by assistive technologies, like when JAWS
-            converts an Enter keypress into a click event.
-            <a href="https://www.tpgi.com/event-handling-in-jaws-and-nvda/#the-curious-case-of-buttons">According to
-              this article from TGPI, this is the default behavior of the JAWS virtual cursor.
-            </a>
+            converts an Enter keypress into a click event. <a
+             href="https://www.tpgi.com/event-handling-in-jaws-and-nvda/#the-curious-case-of-buttons">According to this
+              article from TGPI, this is the default behavior of the JAWS virtual cursor. </a>
           </p>
           <p>By default, when using a web browers, JAWS is using its Virtual Cursor, which is "a kind of pointer input."
             The virtual cursor acts like a pointing device allowing the user to explore a web page using their keyboard.
@@ -227,22 +223,19 @@ button.addEventListener("keydown", (event) => {
           <p>First, we should all take this as a lesson that we shouldn't assume anything about the devices our users
             are using. Many devices and software emulate events fired by other devices.
           </p>
-          <p>Second, even if we don't make any assumptions,
-            <a href="https://blog.ryanheisler.com/blog/accessibility/accessibility-testing-essential.html"> we have to
-              test our own web interfaces with a wide variety of assistive technologies.
-            </a>
-            I wouldn't have caught this issue if I wasn't using JAWS specifically. Those of us who don't regularly
-            depend on assistive technologies need to have users of those technologies test our apps. Someone who relies
-            on a specific technology will have much better and deeper insights into it than someone who doesn't.
+          <p>Second, even if we don't make any assumptions, <a
+           href="https://blog.ryanheisler.com/blog/accessibility/accessibility-testing-essential.html"> we have to test
+            our own web interfaces with a wide variety of assistive technologies. </a> I wouldn't have caught this issue
+            if I wasn't using JAWS specifically. Those of us who don't regularly depend on assistive technologies need
+            to have users of those technologies test our apps. Someone who relies on a specific technology will have
+            much better and deeper insights into it than someone who doesn't.
           </p>
-          <p>Finally,
-            <a href="https://webaim.org/techniques/javascript/eventhandlers#deviceindependent">Web Accessibility In Mind
-              (WebAIM) recommends using device-independent event handlers
-            </a>
-            to avoid exactly the problem I found with JAWS converting keyboard events into mouse events. If you're going
-            to use device-dependent event handlers, they say "Multiple device dependent event handlers can be used
-            together to allow mouse, touch, and keyboard activation of JavaScript, but this requires testing across
-            different browsers and assistive technologies to ensure that accessibility is not limited in any way."
+          <p>Finally, <a href="https://webaim.org/techniques/javascript/eventhandlers#deviceindependent">Web
+            Accessibility In Mind (WebAIM) recommends using device-independent event handlers </a> to avoid exactly the
+            problem I found with JAWS converting keyboard events into mouse events. If you're going to use
+            device-dependent event handlers, they say "Multiple device dependent event handlers can be used together to
+            allow mouse, touch, and keyboard activation of JavaScript, but this requires testing across different
+            browsers and assistive technologies to ensure that accessibility is not limited in any way."
           </p>
 
           <h2>Example with Full Code</h2>

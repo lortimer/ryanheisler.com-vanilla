@@ -71,13 +71,12 @@
                  alt="a tiny, brown slug crawls across a hand toward the camera, antennae extended">
           </div>
 
-          <p>In my last post, I talked about
-            <a href="https://blog.ryanheisler.com/blog/vanilla-project/fetch-in-jsdom.html">a problem I had running the
-              tests for my Vanilla JavaScript application.
-            </a>
-            I was rendering the page-under-test in a JSDOM environment, and the tests were crashing when the code tried
-            to use a browser feature that JSDOM doesn't emulate. I was able to get around this issue the first time it
-            happened by injecting a NodeJS utility into the JSDOM environment.
+          <p>In my last post, I talked about <a
+           href="https://blog.ryanheisler.com/blog/vanilla-project/fetch-in-jsdom.html">a problem I had running the
+            tests for my Vanilla JavaScript application. </a> I was rendering the page-under-test in a JSDOM
+            environment, and the tests were crashing when the code tried to use a browser feature that JSDOM doesn't
+            emulate. I was able to get around this issue the first time it happened by injecting a NodeJS utility into
+            the JSDOM environment.
           </p>
           <p>Since then, I've continued to run into similar problems. It turns out that JSDOM doesn't emulate as much of
             the browser as I thought.
@@ -101,13 +100,11 @@
             happens when the code is bundled made this much harder than I expected.
           </p>
           <p>To make it work, I had to get the file path of the HTML file-to-be-rendered so I could read it and build a
-            JSDOM object from it.
-            <a href="https://stackoverflow.com/a/13227808">This involved using a well-known hack to get the path of the
-              file that called the render function
-            </a>
-            , and changing that path to match the path to the transpiled JavaScript file. This solution worked but it's
-            hacky and complicated, and it's specific to how Parcel changes the file structure when bundling. Below is
-            the code I ended up with to get the file path.
+            JSDOM object from it. <a href="https://stackoverflow.com/a/13227808">This involved using a well-known hack
+              to get the path of the file that called the render function </a> , and changing that path to match the
+            path to the transpiled JavaScript file. This solution worked but it's hacky and complicated, and it's
+            specific to how Parcel changes the file structure when bundling. Below is the code I ended up with to get
+            the file path.
           </p>
 
           <div class="code-container">
@@ -195,11 +192,9 @@
             testing utilities focus on user experience and accessibility just like Testing Library's, so the conversion
             was pretty simple. In fact, I deleted many more lines than I changed or added. I was able to stop using Mock
             Service Worker entirely - Playwright loads documents by calling the real server, but it also provides its
-            own way to mock fetch requests for specific tests. You can browse
-            <a
+            own way to mock fetch requests for specific tests. You can browse <a
              href="https://github.com/lortimer/ryanheisler.com-vanilla/commit/30de2eda5a0700c7dd2ce4295947975b24db0126">
-              the complete changeset required to replace Testing Library with Playwright on Github.
-            </a>
+              the complete changeset required to replace Testing Library with Playwright on Github. </a>
           </p>
           <p>I did have to do a little fiddling. For example, Playwright's configuration includes an option to specify
             servers to run before starting the tests. You can even tell it that it should wait for a successful response

@@ -71,38 +71,32 @@
 
           <h2>Background - JSDOM vs. Browsers</h2>
           <p tabindex="-1" id="footnote-1-ref">Most methods I know of for writing useful unit tests of web application
-            functionality share the same major drawback -
-            <a href="#footnote-1"> the tests don't run in a web browser</a>
-            . Theoretically, they should. If the environment where you test your application is different from the
-            environment where users interact with it, the differences in how the code runs can cause bugs.
+            functionality share the same major drawback - <a href="#footnote-1"> the tests don't run in a web
+              browser</a> . Theoretically, they should. If the environment where you test your application is different
+            from the environment where users interact with it, the differences in how the code runs can cause bugs.
           </p>
           <p>Instead of a web browser, these tests run in NodeJS, which can interpret JavaScript outside of a web
             browser. The tests run fast because you don't actually have to turn the HTML into pixels in a window. On the
             other hand, NodeJS lacks many of the features of a web browser, like a document where HTML is rendered.
           </p>
           <p>Most testing frameworks deal with this by running the tests inside a harness that provides the parts of a
-            browser NodeJS doesn't have.
-            <a href="building-vanilla-webapp.html">My vanilla web application</a>
-            uses a Javascript implementation of many web standards called
-            <a href="https://github.com/jsdom/jsdom">JSDOM (JavaScript Document Object Model)</a>
-            . JSDOM provides a window, document, and other web-browser features. To render a page and run tests against
-            it, all I have to do is instantiate a JSDOM object with the contents of the HTML file I'm testing. It can
-            even load and run scripts that the HTML document calls for. Once I've done that, I can use
-            <a
-             href="https://testing-library.com/docs/dom-testing-library/intro">DOM Testing
-            </a>
-            Library the same way I would in a React project where most of this is set up for me.
+            browser NodeJS doesn't have. <a href="building-vanilla-webapp.html">My vanilla web application</a> uses a
+            Javascript implementation of many web standards called <a href="https://github.com/jsdom/jsdom">JSDOM
+              (JavaScript Document Object Model)</a> . JSDOM provides a window, document, and other web-browser
+            features. To render a page and run tests against it, all I have to do is instantiate a JSDOM object with the
+            contents of the HTML file I'm testing. It can even load and run scripts that the HTML document calls for.
+            Once I've done that, I can use <a
+             href="https://testing-library.com/docs/dom-testing-library/intro">DOM Testing </a> Library the same way I
+            would in a React project where most of this is set up for me.
           </p>
 
           <h2>What's the problem?</h2>
           <p>JSDOM doesn't fully emulate a browser, and I recently ran into a sticky problem. When my HTML document
             under test loaded a script that tried to use the fetch function, it would crash saying fetch wasn't defined.
             Fetch is a function you can use to make requests to another server. It belongs to the global window object,
-            so it would always be defined in a web browser. JSDOM however, has never provided fetch because
-            <a
+            so it would always be defined in a web browser. JSDOM however, has never provided fetch because <a
              href="https://github.com/jsdom/jsdom/issues/1724#issuecomment-285971986">there isn't a spec-compliant
-              implementation of the fetch algorithm for it to use in Node.
-            </a>
+              implementation of the fetch algorithm for it to use in Node. </a>
           </p>
           <p>
             Below are several code snippets showing the test, HTML, and script as they were when I ran into this issue.
@@ -232,17 +226,14 @@ export default &lt;Environment&gt;{
 
           <h2>The Solution</h2>
           <p>
-            Finally, I found a way. Unlike React Testing Library with its render method,
-            <a
-             href="https://testing-library.com/docs/dom-testing-library/example-intro">DOM Testing Library assumes
-              you'll build a DOM yourself in some way
-            </a>
-            . At least some of my tests need to test HTML files, so to "render" a DOM, I need to read those files into
-            an object model. That's where JSDOM is useful. I created my own render method below to read those files into
-            a JSDOM object, then wrap it in a Testing Library container that gives me all the query methods to get
-            elements from that DOM. Note: I omitted the definition of the getCallerFilePath function for space and to
-            avoid confusion. I use it to get the path to the test file that called render, which I'm assuming is the
-            same directory where the HTML file I'm loading is.
+            Finally, I found a way. Unlike React Testing Library with its render method, <a
+           href="https://testing-library.com/docs/dom-testing-library/example-intro">DOM Testing Library assumes you'll
+            build a DOM yourself in some way </a> . At least some of my tests need to test HTML files, so to "render" a
+            DOM, I need to read those files into an object model. That's where JSDOM is useful. I created my own render
+            method below to read those files into a JSDOM object, then wrap it in a Testing Library container that gives
+            me all the query methods to get elements from that DOM. Note: I omitted the definition of the
+            getCallerFilePath function for space and to avoid confusion. I use it to get the path to the test file that
+            called render, which I'm assuming is the same directory where the HTML file I'm loading is.
           </p>
 
           <div class="code-container">
@@ -323,15 +314,11 @@ export const render = (filePath: string) => {
             enough that once you have more than 200 tests or so, it takes many minutes to run them all. You would also
             typically use Jasmine with it. Jasmine uses css selectors for grabbing DOM elements, and fires events in a
             way that isn't the same as when a user interects with elements. These make this tests fail when
-            implementation changes but behavior doesn't, and leaves room for bugs. I subscribe to
-            <a
-             href="https://testing-library.com/docs/guiding-principles">Testing Library's Guiding Principles.
-            </a>
-            Its user-based selectors and UX / accessibility focus make the tests you write far more valuable and less
-            brittle. As far as I know, the only way to use Testing Library is with JSDOM or similar in NodeJS.
-            <a
-             href="#footnote-1-ref">Return to paragraph 1
-            </a>
+            implementation changes but behavior doesn't, and leaves room for bugs. I subscribe to <a
+             href="https://testing-library.com/docs/guiding-principles">Testing Library's Guiding Principles. </a> Its
+            user-based selectors and UX / accessibility focus make the tests you write far more valuable and less
+            brittle. As far as I know, the only way to use Testing Library is with JSDOM or similar in NodeJS. <a
+             href="#footnote-1-ref">Return to paragraph 1 </a>
           </li>
         </ol>
       </footer>
