@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Playwright instead of JSDOM - Testing Vanilla JS - Ryan Heisler's Blog</title>
+    <meta name="author" content="Ryan Heisler">
+    <meta name="description"
+          content="I've run into many challenges testing my vanilla JS website in a JSDOM environment. I decided to swap out my testing stragey for Playwright, and it's going great so far.">
+    <!--TODO update dates-->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Using Playwright instead of a JSDOM Testing Environment",
+        "image": [
+          "images/rep-1x1.jpg",
+          "images/rep-4x3.jpg",
+          "images/rep-16x9.jpg"
+        ],
+        "datePublished": "2025-02-14T18:40:00+00:00",
+        "dateModified": "2025-02-14T18:40:00+00:00",
+        "author": [
+          {
+            "@type": "Person",
+            "name": "Ryan Heisler",
+            "url": "https://ryanheisler.com"
+          }
+        ]
+      }
+    </script>
+
+    <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png"
+          sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../../favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+          href="../../favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Ryan Heisler" />
+    <link rel="manifest" href="../../manifest.webmanifest">
+    <meta name="theme-color" content="#181818" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FDFAF1" media="(prefers-color-scheme: light)">
+
+    <link rel="stylesheet" href="../../common.css">
+    <link rel="stylesheet" href="../../blog.css">
+    <link rel="stylesheet" href="../../fonts/inter.css">
+    <link rel="stylesheet" href="../../fonts/jetbrains-mono.css">
+  </head>
+  <body>
+    <div class="content-container">
+      <main>
+        <article>
+          <h1>Using Playwright instead of a JSDOM Testing Environment</h1>
+          <!--TODO update dates-->
+          <p class="byline">
+            By Ryan Heisler, published
+            <time datetime="2025-02-14">February 14, 2025</time>
+          </p>
+          <div class="image-container">
+            <img srcset="images/banner-640.jpg 640w,
+                         images/banner-768.jpg 768w,
+                         images/banner-1024.jpg 1024w,
+                         images/banner-1200.jpg 1200w,
+                         images/banner-1440.jpg 1440w,
+                         images/banner-1600.jpg 1600w,
+                         images/banner-1920.jpg 1920w,
+                         images/banner-2560.jpg 2560w,
+                         images/banner-full.jpg 3264w,"
+                 sizes="95vw"
+                 src="images/banner-640.jpg"
+                 alt="a tiny, brown slug crawls across a hand toward the camera, antennae extended">
+          </div>
+
+          <p>In my last post, I talked about
+            <a href="https://blog.ryanheisler.com/blog/vanilla-project/fetch-in-jsdom.html">a problem I had running the
+              tests for my Vanilla JavaScript application.
+            </a>
+            I was rendering the page-under-test in a JSDOM environment, and the tests were crashing when the code tried
+            to use a browser feature that JSDOM doesn't emulate. I was able to get around this issue the first time it
+            happened by injecting a NodeJS utility into the JSDOM environment.
+          </p>
+          <p>Since then, I've continued to run into similar problems. It turns out that JSDOM doesn't emulate as much of
+            the browser as I thought.
+          </p>
+
+          <h2>Running tests in a "realistic" environment</h2>
+          <p>At the time I solved the first issue, I was running my tests against the source code files. As you may
+            remember, I write my scripts with TypeScript, not JavaScript. When I run the app, Parcel transpiles the
+            TypeScript files into JavaScript, and then rewrites the HTML files to reference the JavaScript files.
+            However, when I run the tests and render my HTML into JSDOM, it fetches the source TypeScript files and runs
+            them as-is without traspiling them.
+          </p>
+          <p>That worked fine until I actually started using TypeScript syntax in my scripts. At first they contained
+            only valid JavaScript, so they could be run without transpilation. When I added a type hint on a variable,
+            JSDOM started crashing when I ran the tests because the TypeScript syntax wasn't valid JavaScript. Despite
+            the fact that they lived in ".ts" files, JSDOM would just run them assuming they were JavaScript.
+          </p>
+          <p>OK, so the test environment is still not realistic enough. I decided the tests should run against the
+            bundled and transpiled files instead of the source code. That's what I'm actually serving to users, so doing
+            this would make sure transpilation and bundling didn't cause problems. The change in file structure that
+            happens when the code is bundled made this much harder than I expected.
+          </p>
+          <p>To make it work, I had to get the file path of the HTML file-to-be-rendered so I could read it and build a
+            JSDOM object from it.
+            <a href="https://stackoverflow.com/a/13227808">This involved using a well-known hack to get the path of the
+              file that called the render function
+            </a>
+            , and changing that path to match the path to the transpiled JavaScript file. This solution worked but it's
+            hacky and complicated, and it's specific to how Parcel changes the file structure when bundling. Below is
+            the code I ended up with to get the file path.
+          </p>
+
+          <div class="code-container">
+            <p class="visually-hidden">the following is a JavaScript code sample</p>
+            <div class="code-label" aria-hidden="true">JavaScript</div>
+
+            <pre class="code-block">
+<code>function getTranspiledFilePathAndUrl(fileName: string) {
+  let stack = new Error().stack?.split("\n");
+  if (!stack) {
+      throw new Error("Could not get calling file path");
+  }
+
+  // stacktrace array's 4th entry is " at &lt;file path&gt;", so we remove the leading " at "
+  const absolutePath = stack[3].slice(
+      stack[3].indexOf("/"),
+      stack[3].lastIndexOf("/")
+  );
+
+  const filePathStart = absolutePath.substring(0, absolutePath.indexOf("/src"));
+  const publicPath = "/src/public";
+  const indexOfEnd = absolutePath.indexOf(publicPath) + publicPath.length;
+  const filePathEnd = absolutePath.substring(indexOfEnd);
+  const testDirectoryPublicPath = `/.test-dist/${publicPath}`;
+  const filePath = `${fileUrl}${filePathEnd}`;
+
+  return {
+      filePath: path.resolve(filePath, fileName),
+      fileUrl: path.resolve(fileUrl, fileName)
+  };
+}
+
+</code></pre>
+          </div>
+
+          <p>I don't like this. It's hard to read. It also assumes my bundled code has a specific file structure, which
+            Parcel could choose to change at any time. For the added complexity, I don't get much more value. The tests
+            are still running in a NodeJS environment rather than a browser. Still, it worked so I forged ahead.
+          </p>
+
+          <h2>Module scripts</h2>
+          <p>Despite appearances, I'm not messing around with my dev environment for its own sake, I'm building a Yacht
+            Dice web app. Next, I wanted to animate dice rolling when the user rolls the dice. I thought a simple,
+            first-pass implementation could be to update the dice values on the page to random numbers in quick
+            succession. The server also generates random integers, so I already have a function to do this that would
+            work in the browser. I'll need to share code between the frontend and the server eventually, so I decided to
+            tackle it now.
+          </p>
+          <p>In a webapp framework, I would be able to just import the function and use it. Without one, I can still do
+            that thanks to "module" scripts. Rather than having my HTML load both the main dice script and the one
+            containing the random number generator, I can import the random integer function into the dice script. The
+            only caveat is that I have to specify that this is a module script in my HTML using the following syntax:
+            <span class="code-snippet"><code>&lt;script type="module" ...&gt;</code></span>
+          </p>
+          <p>Not knowing if this would work, I added an import to my script and ran the app. It worked great, no
+            fiddling needed! ...that is until I ran the tests and JSDOM threw an exception. It turns out that JSDOM
+            doesn't support module scripts. This is apparently because of a limitation in NodeJS. It hasn't been
+            addressed since 2018 and it won't be any time soon.
+          </p>
+          <p>Unlike with fetch, there's no workaround that I could find for my particular project configuration. JSDOM
+            won't support my use case, and I can't easily add module script support to JSDOM. I also can't forgo a basic
+            feature like module scripts just because my testing environment doesn't support it. The testing environment
+            should support feature development, not the other way around.
+          </p>
+
+          <h2>Now what?</h2>
+          <p>It's become clear that JSDOM doesn't support enough browser features for me to use it to test my
+            application. I'm only doing a few simple things with my code so far, and I've already run into 3 big issues.
+            Even if I found a way to support module scripts, I'm sure I would run into more issues like this down the
+            road.
+          </p>
+          <p>One option is to add a web app framework like React to my project. React Testing Library includes all the
+            infrastructure to render components in a JSDOM environment and do the things I want to do like importing
+            utility functions. I chose not to do this (yet), because my main goal with this project is to learn more
+            about how web applications work without frameworks like React.
+          </p>
+          <p>The next best solution is to stop messing around and fully commit to running my tests in a real browser.
+            JSDOM was meant to simulate a browser at the cost of some real features, but with the benefit of speed when
+            running the tests. I've spent hours trying to make it work, so that's turned into a higher cost for a
+            smaller benefit than I initially thought.
+          </p>
+
+          <h2>Playwright</h2>
+          <p>I translated my tests from Testing Library into Playwright to see how well that would work. Playwright's
+            testing utilities focus on user experience and accessibility just like Testing Library's, so the conversion
+            was pretty simple. In fact, I deleted many more lines than I changed or added. I was able to stop using Mock
+            Service Worker entirely - Playwright loads documents by calling the real server, but it also provides its
+            own way to mock fetch requests for specific tests. You can browse
+            <a
+             href="https://github.com/lortimer/ryanheisler.com-vanilla/commit/30de2eda5a0700c7dd2ce4295947975b24db0126">
+              the complete changeset required to replace Testing Library with Playwright on Github.
+            </a>
+          </p>
+          <p>I did have to do a little fiddling. For example, Playwright's configuration includes an option to specify
+            servers to run before starting the tests. You can even tell it that it should wait for a successful response
+            from a specific endpoint. This option didn't seem to work for me. The Playwright tests would sometimes run
+            and fail before the server was ready. I had to add an endpoint that waits for a few seconds before
+            responding to make sure Playwright waits long enough before starting the tests. That's a pretty brittle
+            solution - the amount of time it takes will vary from my computer to another, which might force me to come
+            up with a better solution if I want to run my tests on a continuous integration server.
+          </p>
+          <p>Despite little challenges like this, adding Playwright to my project was very easy and the tests run
+            reliably and quickly! Even with a few seconds' delay at the beginning, they take about as long as my Testing
+            Library tests did. It's very possible that they will slow down faster than a Node test suite would as I add
+            tests to the suite. Tests always become slow as they grow, so I think either way I'll need to find a way to
+            split them into groups and choose how and when I run which ones.
+          </p>
+          <p>For now, Playwright is all upside. I can still write high-quality tests that care about the code's behavior
+            rather than its implementation. The tests run against a real browser, so I can be sure my code will work for
+            my users. And I can stop wasting hours trying to make JSDOM behave like a browser.
+          </p>
+
+        </article>
+        <a href="/" class="back-to-homepage-end-link"><span aria-hidden="true">&larr; </span>Back to the home page</a>
+      </main>
+    </div>
+  </body>
+</html>

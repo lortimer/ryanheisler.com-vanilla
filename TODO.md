@@ -3,9 +3,9 @@
 ## Blog
 
 - [ ] Add new posts
-    - JAWS + click events
-    - JSDOM --> Playwright
-    - Ergo Ploopy
+    - [X] JAWS + click events
+    - [ ] JSDOM --> Playwright
+    - [ ] Ergo Ploopy
 - [ ] Add page for each "tag" (accessibility, vanilla project, etc.)
     - [ ] Add links somewhere on main page
 - [ ] Add skip-nav link
