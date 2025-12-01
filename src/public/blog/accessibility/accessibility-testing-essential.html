@@ -7,6 +7,19 @@
     <meta name="author" content="Ryan Heisler">
     <meta name="description"
           content="We who build software choose who is disabled by our products and who isn't. We must test our products for accessibility when testing for usability">
+
+    <meta property="og:title" content="Accessibility Testing is Essential">
+    <meta property="og:description"
+          content="We who build software choose who is disabled by our products and who isn't. We must test our products for accessibility when testing for usability">
+    <meta property="og:image" content="/images/rep-16x9.jpg">
+    <meta property="og:url"
+          content="https://blog.ryanheisler.com/blog/accessibility/accessibility-testing-essential.html">
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2025-01-12T20:50:00+00:00">
+    <meta property="article:modified_time" content="2025-01-12T20:50:00+00:00">
+    <meta property="article:author" content="Ryan Heisler">
+    <meta property="article:section" content="Accessibility">
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -71,16 +84,14 @@
           <p>Accessibility is a part of usability that improves the user experience for everyone, and yet so many
             project teams I've worked with spend almost none of their time on it, if any. When I bring it up, they
             acknowledge it as important, but the expectation is generally that the engineers can just make their code
-            comply with the
-            <a
-             href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines (WCAG)
-            </a>
+            comply with the <a
+             href="https://www.w3.org/WAI/standards-guidelines/wcag/">Web Content Accessibility Guidelines (WCAG) </a>
             and the app will be fully accessible to all.
           </p>
           <p>Let me be very clear to anyone who participates in building software: writing WCAG-compliant code is not
-            enough! As my volunteer team has built out
-            <a href="https://local-gov.id">a resource site for Washtenaw County ID holders</a>
-            , we've discovered a number of accessibility issues in code that follows all the rules.
+            enough! As my volunteer team has built out <a href="https://local-gov.id">a resource site for Washtenaw
+              County ID holders</a> , we've discovered a number of accessibility issues in code that follows all the
+            rules.
           </p>
           <p>Testing your own application can help you catch obviously bad experiences before you get feedback from your
             users and fine-tune. As an industry, we know this is true and we regularly test our apps with a keyboard, a
@@ -135,24 +146,16 @@
             might think the number is data from the table itself. Even if they understand what's going on, it takes
             about 12 seconds just to read that number at the default VoiceOver reading speed! Can you imagine having to
             wait 12 seconds just to hear the next part of the table?</p>
-          <p>So what was going on? Our search also led us to a
-            <a
-             href="https://www.powermapper.com/tests/screen-readers/tables/table-caption/">page on PowerMapper where
-              this issue has been documented since iOS 13
-            </a>
-            , which came out in 2019 (over 5 years ago now!). This page was very helpful to understand the cause and
-            solution. Testing confirmed that having a caption and table headers in the table was the root cause of the
-            issue. Captions are the standard way to label an HTML table according to the
-            <a
+          <p>So what was going on? Our search also led us to a <a
+           href="https://www.powermapper.com/tests/screen-readers/tables/table-caption/">page on PowerMapper where this
+            issue has been documented since iOS 13 </a> , which came out in 2019 (over 5 years ago now!). This page was
+            very helpful to understand the cause and solution. Testing confirmed that having a caption and table headers
+            in the table was the root cause of the issue. Captions are the standard way to label an HTML table according
+            to the <a
              href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/caption">Mozilla Developer Network caption
-              element page
-            </a>
-            and the
-            <a
+              element page </a> and the <a
              href="https://www.w3.org/WAI/tutorials/tables/caption-summary/">World Wide Web Consortium (W3C) caption and
-              summary page
-            </a>
-            , so this is another example of best practices leading to a bad experience.
+              summary page </a> , so this is another example of best practices leading to a bad experience.
           </p>
           <p>We found other issues with our table, including one header being read when a different header was selected.
             Considering this, the small number of columns in our data, and the fact that we expect most of our users to
@@ -167,33 +170,24 @@
             trap the user's focus until they closed the menu or activated one of the links. The focus trap would cycle
             their focus to the top of the menu if they tried to tab past the last item.</p>
           <p>Let me be clear, this is the wrong way to implement a collapsing menu! According to the W3C's Web
-            Accessibility Initiative's (WAI) pages about the
-            <a
-             href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">Menu Button Pattern
-            </a>
-            and the
-            <a
-             href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/">Menu and Menubar Pattern
-            </a>
-            , menus should not capture focus. We didn't know that at the time, but testing our implementation for the
-            experience with a screen reader helped us figure it out.
+            Accessibility Initiative's (WAI) pages about the <a
+             href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">Menu Button Pattern </a> and the <a
+             href="https://www.w3.org/WAI/ARIA/apg/patterns/menubar/">Menu and Menubar Pattern </a> , menus should not
+            capture focus. We didn't know that at the time, but testing our implementation for the experience with a
+            screen reader helped us figure it out.
           </p>
           <p>The way we made this work was by writing a relatively complex set of functions that would run when the user
             pressed a key with focus on or in the menu. That should have been our first clue - if you're implementing a
             lot of JavaScript to do something you find on most websites, you might just be building a custom widget. And
             if you're doing that, you should first check to see if there's a native HTML element that can do what you
-            want. In our case,
-            <a
-             href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details">the details element
-            </a>
-            does everything we need.
+            want. In our case, <a
+             href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details">the details element </a> does
+            everything we need.
           </p>
           <p>We didn't find the details element, and we also didn't take the next best step, which is to look around the
-            internet for a guide on the best practices for the pattern you're implementing. The
-            <a
-             href="https://www.w3.org/WAI/ARIA/apg/patterns/">WAI ARIA Authoring Practices Guide
-            </a>
-            is a great place to start, and would have told us not to trap focus in this case.
+            internet for a guide on the best practices for the pattern you're implementing. The <a
+             href="https://www.w3.org/WAI/ARIA/apg/patterns/">WAI ARIA Authoring Practices Guide </a> is a great place
+            to start, and would have told us not to trap focus in this case.
           </p>
           <p>Doing none of that, we plowed ahead with our implementation and ran into the problem. When you move focus
             to the next item with a mobile screen reader, there is no keyboard event so focus isn't trapped. In fact,
@@ -205,10 +199,8 @@
             find the focused element visually on the screen. There's really no world in which it's an acceptable user
             experience.</p>
           <p>Considering our audience and the technologies we expect them to use, we were able to remove the focus trap
-            and stop covering the screen with the menu, pushing the page contents down instead. We considered using
-            <a
-             href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert">the inert attribute
-            </a>
+            and stop covering the screen with the menu, pushing the page contents down instead. We considered using <a
+             href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert">the inert attribute </a>
             on the page behind the menu, but it's relatively new and many of our users may use older browser versions
             that don't support inert. As always, your best solution depends on your audience.
           </p>
@@ -238,11 +230,9 @@
       </main>
       <hr class="horizontal-rule">
       <footer class="italic">
-        <p>This post is a modified version of an article I wrote and originally published on my employer's blog:
-          <a
-           href="https://artium.ai/insights/accessibility-testing-is-an-essential-part-of-user-experience-testing">
-            Accessibility Testing is an Essential Part of User Experience Testing
-          </a>
+        <p>This post is a modified version of an article I wrote and originally published on my employer's blog: <a
+         href="https://artium.ai/insights/accessibility-testing-is-an-essential-part-of-user-experience-testing">
+          Accessibility Testing is an Essential Part of User Experience Testing </a>
         </p>
       </footer>
     </div>
