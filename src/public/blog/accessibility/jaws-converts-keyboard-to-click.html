@@ -284,44 +284,44 @@ button.addEventListener("keydown", (event) => {
 
 
   const showDisclosure = () => {
-      disclosure.removeAttribute("hidden");
-      button.setAttribute("aria-expanded", "true");
-      disclosureIsShown = true;
+    disclosure.removeAttribute("hidden");
+    button.setAttribute("aria-expanded", "true");
+    disclosureIsShown = true;
   };
 
 
   const hideDisclosure = () => {
-      disclosure.setAttribute("hidden", "true");
-      button.setAttribute("aria-expanded", "false");
-      disclosureIsShown = false;
+    disclosure.setAttribute("hidden", "true");
+    button.setAttribute("aria-expanded", "false");
+    disclosureIsShown = false;
   };
 
 
   disclosureContainer.addEventListener("mouseenter", () => {
-      showDisclosure();
+    showDisclosure();
   });
 
 
   disclosureContainer.addEventListener("mouseleave", () => {
-      hideDisclosure();
+    hideDisclosure();
   });
 
 
   disclosureContainer.addEventListener("focusout", (event) => {
-      if (!disclosureContainer.contains(event.relatedTarget)) {
-          hideDisclosure();
-      }
+    if (!disclosureContainer.contains(event.relatedTarget)) {
+      hideDisclosure();
+    }
   });
 
 
   button.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" || event.keyCode === 13) {
-          if (disclosureIsShown) {
-              hideDisclosure();
-          } else {
-              showDisclosure();
-          }
+    if (event.key === "Enter" || event.keyCode === 13) {
+      if (disclosureIsShown) {
+        hideDisclosure();
+      } else {
+        showDisclosure();
       }
+    }
   });
 &lt;/script&gt;
 &lt;/body&gt;
