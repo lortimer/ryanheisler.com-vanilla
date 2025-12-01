@@ -7,7 +7,6 @@
     <meta name="author" content="Ryan Heisler">
     <meta name="description"
           content="How I customized my Ploopy Adept trackball for ergonomics and to make it work well on MacOS, including customizations to the underlying QMK-based firmware.">
-    <!--TODO update dates-->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -18,8 +17,8 @@
           "images/rep-4x3.jpg",
           "images/rep-16x9.jpg"
         ],
-        "datePublished": "2025-11-30T20:50:00+00:00",
-        "dateModified": "2025-11-30T20:50:00+00:00",
+        "datePublished": "2025-11-30T21:00:00+00:00",
+        "dateModified": "2025-11-30T21:00:00+00:00",
         "author": [
           {
             "@type": "Person",
@@ -54,8 +53,7 @@
             Vial</h1>
           <p class="byline">
             By Ryan Heisler, published
-            <!--TODO update dates-->
-            <time datetime="2025-01-12">January 12, 2025</time>
+            <time datetime="2025-11-30">November 30, 2025</time>
           </p>
           <div class="image-container">
             <img srcset="images/banner-640.jpg 640w,
@@ -69,7 +67,7 @@
                          images/banner-3264.jpg 4080w,"
                  sizes="95vw"
                  src="images/banner-640.jpg"
-                 alt="A person in the distance walks across the coast of Maine, USA. The shore is covered in sharp rocks and boulders, seaweed, and further away, pine and other trees">
+                 alt="A macro shot of the blue Ploopy Adept against a white background showing the buttons across the bottom and the trackball looming over the scene taking up the middle section of the image">
           </div>
           <p>I've been struggling with the ergonmics of my keyboard and mouse lately. I recently bought a Ploopy Adept
             to see if it helped with my ergonomic issues and because it's highly customizeable. I've made a few
@@ -77,7 +75,6 @@
             their QMK devices.
           </p>
 
-          <!--TODO: Make these into links-->
           <h2 id="table-of-contents">Table of Contents</h2>
           <ol>
             <li><a href="#customizing-firmware">A note about customizing the firmware</a></li>
@@ -153,8 +150,18 @@
             pinky. I've found I like to move the ball with my fingertips, so it's nice to only have to reach over it for
             two of the buttons.
           </p>
-          <!--TODO make image-->
-          <!--          <img>-->
+          <img srcset="images/adept-640.jpg 640w,
+                         images/adept-768.jpg 768w,
+                         images/adept-1024.jpg 1024w,
+                         images/adept-1200.jpg 1200w,
+                         images/adept-1440.jpg 1440w,
+                         images/adept-1600.jpg 1600w,
+                         images/adept-1920.jpg 1920w,
+                         images/adept-2560.jpg 2560w,
+                         images/adept-4080.jpg 4080w,"
+               sizes="95vw"
+               src="images/adept-640.jpg"
+               alt="The author's hand resting on the Ploopy Adept rotated by 180 degrees and sitting on his desk. His thumb is resting on the row of buttons across the near side of the device and the tips of his fingers are resting on the trackball">
 
           <h3 id="invert-trackball">Invert the Trackball</h3>
           <p>In order to use the adept like this, we need to invert the trackball's X and optionally Y dimensions. By
@@ -203,8 +210,12 @@
           <p>Compiling the firmware with this file makes the adept's buttons appear in the 180-degree-rotated
             orientation in Vial.
           </p>
-          <!--TODO make image-->
-          <!--          <img>-->
+          <img srcset="images/vial-640.jpg 640w,
+                         images/vial-768.jpg 768w,
+                         images/vial-1024.jpg 1024w,"
+               sizes="95vw"
+               src="images/vial-640.jpg"
+               alt="Screenshot of the Vial application showing the Adept button layout rotated by 180 degrees from the default">
 
           <h4 id="layout-system">How does the layout system work?</h4>
           <p>In keyboards/ploopyco/madromys/keymaps/vial/vial.json layouts.keymap is an array of object/string pairs.
