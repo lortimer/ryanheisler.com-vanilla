@@ -96,7 +96,7 @@
             Fetch is a function you can use to make requests to another server. It belongs to the global window object,
             so it would always be defined in a web browser. JSDOM however, has never provided fetch because <a
              href="https://github.com/jsdom/jsdom/issues/1724#issuecomment-285971986">there isn't a spec-compliant
-              implementation of the fetch algorithm for it to use in Node. </a>
+              implementation of the fetch algorithm for it to use in Node.</a>
           </p>
           <p>
             Below are several code snippets showing the test, HTML, and script as they were when I ran into this issue.
@@ -315,7 +315,7 @@ export const render = (filePath: string) => {
             typically use Jasmine with it. Jasmine uses css selectors for grabbing DOM elements, and fires events in a
             way that isn't the same as when a user interects with elements. These make this tests fail when
             implementation changes but behavior doesn't, and leaves room for bugs. I subscribe to <a
-             href="https://testing-library.com/docs/guiding-principles">Testing Library's Guiding Principles. </a> Its
+             href="https://testing-library.com/docs/guiding-principles">Testing Library's Guiding Principles.</a> Its
             user-based selectors and UX / accessibility focus make the tests you write far more valuable and less
             brittle. As far as I know, the only way to use Testing Library is with JSDOM or similar in NodeJS. <a
              href="#footnote-1-ref">Return to paragraph 1 </a>

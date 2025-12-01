@@ -2,11 +2,6 @@
 
 ## Blog
 
-- [X] Add new posts
-    - [X] JAWS + click events
-    - [X] JSDOM --> Playwright
-    - [X] Ergo Ploopy
-- [ ] Publish new posts
 - [ ] post adept article to reddit - own post and linked on threads about scroll not working on MacOS
 - [ ] Add "opens in new tab" and target=blank to all external links
 - [ ] Add page for each "tag" (accessibility, vanilla project, etc.)

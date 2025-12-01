@@ -71,10 +71,10 @@
 
           <p>In my last post, I talked about <a
            href="https://blog.ryanheisler.com/blog/vanilla-project/fetch-in-jsdom.html">a problem I had running the
-            tests for my Vanilla JavaScript application. </a> I was rendering the page-under-test in a JSDOM
-            environment, and the tests were crashing when the code tried to use a browser feature that JSDOM doesn't
-            emulate. I was able to get around this issue the first time it happened by injecting a NodeJS utility into
-            the JSDOM environment.
+            tests for my Vanilla JavaScript application.</a> I was rendering the page-under-test in a JSDOM environment,
+            and the tests were crashing when the code tried to use a browser feature that JSDOM doesn't emulate. I was
+            able to get around this issue the first time it happened by injecting a NodeJS utility into the JSDOM
+            environment.
           </p>
           <p>Since then, I've continued to run into similar problems. It turns out that JSDOM doesn't emulate as much of
             the browser as I thought.
@@ -192,7 +192,7 @@
             Service Worker entirely - Playwright loads documents by calling the real server, but it also provides its
             own way to mock fetch requests for specific tests. You can browse <a
              href="https://github.com/lortimer/ryanheisler.com-vanilla/commit/30de2eda5a0700c7dd2ce4295947975b24db0126">
-              the complete changeset required to replace Testing Library with Playwright on Github. </a>
+              the complete changeset required to replace Testing Library with Playwright on Github.</a>
           </p>
           <p>I did have to do a little fiddling. For example, Playwright's configuration includes an option to specify
             servers to run before starting the tests. You can even tell it that it should wait for a successful response
