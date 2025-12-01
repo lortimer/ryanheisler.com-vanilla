@@ -11,9 +11,7 @@ To run tests, run `npm test`
 
 ## Update site content - 1st Draft
 
-Currently, I'm hosting this site on AWS S3 with Cloudfront. I don't need a server right now because everything is
-pre-rendered and needs no JavaScript. Eventually, I may move to server hosting, especially if I want to do any kind of
-backend rendering.
+Currently, I'm hosting this site on AWS S3 with Cloudfront. I don't need a server right now because everything is pre-rendered and needs no JavaScript. Eventually, I may move to server hosting, especially if I want to do any kind of backend rendering.
 
 The following is how you can update the site with new content.
 
