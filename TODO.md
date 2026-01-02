@@ -2,9 +2,7 @@
 
 ## Blog
 
-- [X] post adept article to reddit - own post and linked on threads about scroll not working on MacOS
-- [X] Add open graph images and other tags to every page
-- [ ] Add "opens in new tab" and target=blank to all external links
+- [ ] Add "opens in new tab" and target=blank to aleerl external links
 - [ ] Add page for each "tag" (accessibility, vanilla project, etc.)
     - [ ] Add links somewhere on main page
 - [ ] Add skip-nav link
