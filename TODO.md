@@ -13,6 +13,7 @@
 - [ ] Figure out auto-renewal of certificate
 - [ ] Serve blog from Express server, not Parcel static
 - [ ] Add an RSS feed
+- [ ] Accessibility inspiration: https://www.lflegal.com/
 
 ## Server
 
