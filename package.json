@@ -1,7 +1,7 @@
 {
-  "name": "ryanheisler.com",
+  "name": "heisldice",
   "version": "0.0.0",
-  "description": "Ryan Heisler's personal website",
+  "description": "Implementation of Yacht Dice for Ryan Heisler's website",
   "scripts": {
     "test": "npm run build-tests && vitest --run",
     "api-watch": "tsc --watch",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lortimer/ryanheisler.com-vanilla.git"
+    "url": "git+https://github.com/lortimer/heisldice.git"
   },
   "author": "Ryan Heisler (ryanheisler.com)",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/lortimer/ryanheisler.com-vanilla/issues"
+    "url": "https://github.com/lortimer/heisldice/issues"
   },
-  "homepage": "https://github.com/lortimer/ryanheisler.com-vanilla#readme",
+  "homepage": "https://github.com/lortimer/heisldice#readme",
   "dependencies": {
     "express": "^4.19.2"
   },
@@ -50,11 +50,7 @@
   "targets": {
     "frontend": {
       "source": [
-        "./src/public/index.html",
-        "./src/public/heisldice/heisldice.html",
-        "./src/public/googlec8167c7efd0aec0a.html",
-        "./src/public/sitemap.xml",
-        "./src/public/robots.txt"
+        "./src/public/heisldice/heisldice.html"
       ],
       "distDir": "./dist/public",
       "optimize": false

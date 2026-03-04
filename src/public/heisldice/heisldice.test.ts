@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test.describe("heisldice page", () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto("heisldice");
+        await page.goto("/");
     });
     test("has a main heading", async ({ page }) => {
         const banner = page.getByRole("banner");

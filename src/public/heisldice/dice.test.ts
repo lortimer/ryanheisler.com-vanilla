@@ -5,7 +5,7 @@ import { heisldiceRoutes } from "../../heisldice/heisldice-router";
 test.describe("dice", () => {
     let rollButton: Locator;
     test.beforeEach(async ({ page }) => {
-        await page.goto("heisldice");
+        await page.goto("/");
     });
     test.describe("when the dice are rolled", () => {
         let diceRolls: number[][];

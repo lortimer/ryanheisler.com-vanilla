@@ -6,7 +6,6 @@ dist
 local-assets
 src/public/fonts/files/
 src/public/favicon
-src/public/blog/**/images
 post-images
 google*.html
 

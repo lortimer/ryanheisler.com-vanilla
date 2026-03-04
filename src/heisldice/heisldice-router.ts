@@ -4,7 +4,7 @@ import { rollDice } from "./dice.api";
 export const heisldiceRouter = Router();
 
 export const heisldiceRoutes = {
-    index: "/heisldice/",
+    index: "/",
     dice: "/dice"
 };
 
