@@ -1,5 +1,3 @@
-import { randomInt } from "node:crypto";
-
 /**
  * returns a random integer between `from` and `through` inclusive of both
  *
@@ -10,5 +8,11 @@ import { randomInt } from "node:crypto";
  * @return {number}
  */
 export const randomInteger = (from: number, through: number): number => {
-    return randomInt(from, through + 1);
+    if (from < through) {
+        const range = through - from;
+        return Math.floor((Math.random() * (range + 1)) + from);
+    }
+
+    const errorMessage = `randomInteger requires first parameter 'from' (${from}) to be less than second parameter 'through' (${through})`;
+    throw new SyntaxError(errorMessage);
 };

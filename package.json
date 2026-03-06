@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "description": "Implementation of Yacht Dice for Ryan Heisler's website",
   "scripts": {
-    "test": "npm run build-tests && vitest --run",
     "api-watch": "tsc --watch",
     "api-dev": "nodemon ./dist/server.js",
     "frontend-dev": "rm -rf ./.parcel-cache && parcel watch --no-cache --target frontend",
     "build": "npm run clean && tsc && parcel build --target frontend",
     "clean": "rm -rf ./.parcel-cache ./dist ./.test-dist",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "npm run test:api && wait npm run test:ui",
+    "test:api": "vitest --run",
+    "test:ui": "npx playwright test"
   },
   "repository": {
     "type": "git",

@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import supertest from "supertest";
 import { app } from "../server";
-import { randomInteger } from "./random";
+import { randomInteger } from "../public/utilities/random";
 
-vi.mock("./random", () => ({
+vi.mock("../public/utilities/random", () => ({
     randomInteger: vi.fn().mockName("randomInteger")
 }));
 

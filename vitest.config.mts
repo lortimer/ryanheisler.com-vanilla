@@ -4,6 +4,6 @@ export default defineConfig({
     test: {
         environment: "node",
         include: ["src/**/*test*"],
-        exclude: ["src/public/**/*"]
+        exclude: ["src/public/heisldice/**/*"]
     },
 });
